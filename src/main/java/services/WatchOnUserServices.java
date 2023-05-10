@@ -17,7 +17,7 @@ public class WatchOnUserServices implements UserServices{
     private static final String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!.@#&()–{}:;',?/*~$^+=<>])" +
             ".{5,20}$";
     private static final String emailRegex = "^(?=.{1,64}@)[\\p{L}0-9+_-]+(\\.[\\p{L}0-9+_-]+)*@"
-            + "[^-][\\p{L}0-9+-]+(\\.[\\p{L}0-9+-]+)*(\\.[\\p{L}]{2,})$";
+            + "[^-][\\p{L}0-9+-]+(\\.[\\p{L}0-9+-]+)*(\\.\\p{L}{2,})$";
     static Pattern passwordPattern = Pattern.compile(passwordRegex);
     static Pattern emailPattern = Pattern.compile(emailRegex);
 
@@ -49,20 +49,44 @@ public class WatchOnUserServices implements UserServices{
 
         User user = userRepository.findByEmail(email);
 
-        if (userRepository.findByEmail(email) == null){
-            throw new IllegalArgumentException("Access denied: User is not signed up to this app");
-        }
+        throwExceptionIfNotSignedUp(user);
 
-        if (!email.equals(user.getEmail())){
-            if (!password.equals(user.getPassword())){
-                throw new IllegalArgumentException("Wrong email or password.");
-            }
-        }
+        verifyThatPasswordMatchesExistingUser(password, user);
 
-        LoginResponse loginResponse = new LoginResponse();
-        loginResponse.setMessage("Logged in.");
-        return loginResponse;
+        return getLoginResponse();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     private static void emailValidator(String email) {
@@ -101,4 +125,25 @@ public class WatchOnUserServices implements UserServices{
         signUpResponse.setMessage("Sign Up successful. Check your email for a link to login");
         return signUpResponse;
     }
+
+
+    private static void throwExceptionIfNotSignedUp(User user) {
+        if (user == null){
+            throw new IllegalArgumentException("Access denied: User is not signed up to this app");
+        }
+    }
+
+    private static void verifyThatPasswordMatchesExistingUser(String password, User user) {
+        if (!password.equals(user.getPassword())){
+            throw new IllegalArgumentException("Invalid Password.");
+        }
+    }
+
+    private static LoginResponse getLoginResponse() {
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setMessage("Logged in.");
+        return loginResponse;
+    }
+
+
 }

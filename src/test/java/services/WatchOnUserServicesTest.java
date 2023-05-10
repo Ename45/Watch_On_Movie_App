@@ -128,6 +128,15 @@ class WatchOnUserServicesTest {
     }
 
     @Test
+    @DisplayName("A user cannot login if data is not in database")
+    public void aUserCannotLoginWithoutSigningUpTest(){
+        loginRequest.setEmail("ename@gmail.com");
+        loginRequest.setPassword("In4m.");
+
+        assertThrows(IllegalArgumentException.class, ()-> userServices.login(loginRequest));
+    }
+
+    @Test
     @DisplayName("A user can login")
     public void aUserCanLoginTest(){
         signUpRequest.setFullName("Inemesit Udousoro");
@@ -144,5 +153,47 @@ class WatchOnUserServicesTest {
         String actualMessage = userServices.login(loginRequest).getMessage();
         assertEquals(expectedMessage, actualMessage);
     }
+
+    @Test
+    @DisplayName("Two different users can login")
+    public void twoUserCanLoginTest(){
+        signUpRequest.setFullName("Inemesit Udousoro");
+        signUpRequest.setEmail("ename@gmail.com");
+        signUpRequest.setPassword("In4m.");
+        userServices.signUp(signUpRequest);
+
+        loginRequest.setEmail("ename@gmail.com");
+        loginRequest.setPassword("In4m.");
+        userServices.login(loginRequest);
+
+        SignUpRequest signUpRequest2 = new SignUpRequest();
+        signUpRequest2.setFullName("Legends Browse");
+        signUpRequest2.setEmail("leg@gmail.com");
+        signUpRequest2.setPassword("L3g8u.");
+        userServices.signUp(signUpRequest2);
+
+        loginRequest.setEmail("leg@gmail.com");
+        loginRequest.setPassword("L3g8u.");
+        userServices.login(loginRequest);
+
+        assertEquals(2, userRepository.countUser());
+    }
+
+    @Test
+    @DisplayName("A user cannot login with wrong password")
+    public void aUserCannotLoginWithAWrongPasswordTest(){
+        signUpRequest.setFullName("Inemesit Udousoro");
+        signUpRequest.setEmail("ename@gmail.com");
+        signUpRequest.setPassword("In4m.");
+
+        userServices.signUp(signUpRequest);
+
+        loginRequest.setEmail("ename@gmail.com");
+        loginRequest.setPassword("In5g.");
+
+
+        assertThrows(IllegalArgumentException.class, ()-> userServices.login(loginRequest));
+    }
+
 
 }

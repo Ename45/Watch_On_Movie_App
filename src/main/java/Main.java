@@ -1,7 +1,9 @@
 import data.models.User;
 import data.repositories.UserRepository;
 import data.repositories.WatchOnUserRepository;
+import dto.requests.LoginRequest;
 import dto.requests.SignUpRequest;
+import dto.responses.LoginResponse;
 import dto.responses.SignUpResponse;
 import services.UserServices;
 import services.WatchOnUserServices;
@@ -16,14 +18,16 @@ public class Main {
         displayMenu();
     }
 
-    private static final String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!.@#&()–[{}]:;',?/*~$^+=<>])" +
+    private static final String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!.@#&()–{}:;',?/*~$^+=<>])" +
             ".{5,20}$";
     private static final String emailRegex = "^(?=.{1,64}@)[\\p{L}0-9+_-]+(\\.[\\p{L}0-9+_-]+)*@"
-            + "[^-][\\p{L}0-9+-]+(\\.[\\p{L}0-9+-]+)*(\\.[\\p{L}]{2,})$";
+            + "[^-][\\p{L}0-9+-]+(\\.[\\p{L}0-9+-]+)*(\\.\\p{L}{2,})$";
     static Pattern passwordPattern = Pattern.compile(passwordRegex);
     static Pattern emailPattern = Pattern.compile(emailRegex);
     static SignUpRequest signUpRequest = new SignUpRequest();
     static SignUpResponse signUpResponse = new SignUpResponse();
+    static LoginRequest loginRequest = new LoginRequest();
+    static LoginResponse loginResponse = new LoginResponse();
     static UserRepository userRepository = new WatchOnUserRepository();
     static UserServices userServices = new WatchOnUserServices(userRepository);
 //    static Scanner scanner = new Scanner(System.in);
@@ -35,14 +39,39 @@ public class Main {
                       2 -> Login
                 """);
         String userEntryChoice = input(MainMenu);
+        while (!userEntryChoice.equals("1") && !userEntryChoice.equals("2")){
+            display("Wrong entry. Pick from available options");
+            userEntryChoice = input(MainMenu);
+        }
         if (userEntryChoice.equals("1")){
-            display("SIGN UP");
             signUp();
 
         }
-        else if (userEntryChoice.equals("2")){
-            display("LOGIN");
+        else {
+            login();
         }
+    }
+
+    private static void login(){
+        String email = input("Enter your email");
+        String password = input("Enter your password");
+
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+
+            while (!password.equals(user.getPassword())){
+                password = input("Wrong Password. Enter your password");
+            }
+
+            loginRequest.setEmail(email);
+            loginRequest.setPassword(password);
+            loginResponse = userServices.login(loginRequest);
+            display(loginResponse.getMessage());
+
+        }
+        else display("User does not exist");
+
+        displayMenu();
     }
 
     private static void signUp() {
