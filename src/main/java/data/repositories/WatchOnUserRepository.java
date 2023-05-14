@@ -1,5 +1,6 @@
 package data.repositories;
 
+import data.models.Role;
 import data.models.User;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class WatchOnUserRepository implements UserRepository{
     private void saveNewUser(User user) {
         String id = generateId();
         user.setUserId(id);
+        user.setRole(Role.USER);
         userList.add(user);
     }
 

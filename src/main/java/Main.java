@@ -20,8 +20,8 @@ public class Main {
 
     private static final String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!.@#&()–{}:;',?/*~$^+=<>])" +
             ".{5,20}$";
-    private static final String emailRegex = "^(?=.{1,64}@)[\\p{L}0-9+_-]+(\\.[\\p{L}0-9+_-]+)*@"
-            + "[^-][\\p{L}0-9+-]+(\\.[\\p{L}0-9+-]+)*(\\.\\p{L}{2,})$";
+    private static final String emailRegex = "^(?=.{1,64}@)[\\p{L}0-9+_-]+(\\.[\\p{L}0-9+_-]+)*@" +
+            "[^!.@#&()–{}:;',?/*~$^+=<>][\\p{L}0-9+-]+(\\.[\\p{L}0-9+-]+)*(\\.\\p{L}{2,})$";
     static Pattern passwordPattern = Pattern.compile(passwordRegex);
     static Pattern emailPattern = Pattern.compile(emailRegex);
     static SignUpRequest signUpRequest = new SignUpRequest();
@@ -60,7 +60,7 @@ public class Main {
         if (user != null) {
 
             while (!password.equals(user.getPassword())){
-                password = input("Wrong Password. Enter your password");
+                password = input("Password does not match. Enter your password");
             }
 
             loginRequest.setEmail(email);
@@ -87,7 +87,7 @@ public class Main {
         String email = input("Enter your Email: ");
         Matcher emailMatcher = emailPattern.matcher(email);
         while (!emailMatcher.matches()){
-            email = input("Enter your Email: ");
+            email = input("Wrong email Address. Enter your Email: ");
             emailMatcher = emailPattern.matcher(email);
         }
         signUpRequest.setEmail(email);
@@ -96,7 +96,8 @@ public class Main {
         String password = input("Enter your 5-digit password: ");
         Matcher passwordMatcher = passwordPattern.matcher(password);
         while (!passwordMatcher.matches()){
-            password = input("Enter your 5-digit password: ");
+            password = input("Password should contain at least one capital letter,\nsmall letter, number and a " +
+                    "character.\nPassword should be more than 4 characters: ");
             passwordMatcher = passwordPattern.matcher(password);
         }
         signUpRequest.setPassword(password);

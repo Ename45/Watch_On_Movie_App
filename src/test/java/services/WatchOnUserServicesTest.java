@@ -1,6 +1,7 @@
 package services;
 
 import com.sun.jdi.request.DuplicateRequestException;
+import data.models.Role;
 import data.models.User;
 import data.repositories.UserRepository;
 import data.repositories.WatchOnUserRepository;
@@ -46,9 +47,22 @@ class WatchOnUserServicesTest {
         signUpRequest.setEmail("ename@gmail.com");
         signUpRequest.setPassword("I2emf.");
 
+
         String expectedMessage = "Sign Up successful. Check your email for a link to login";
         String actualMessage = userServices.signUp(signUpRequest).getMessage();
         assertEquals(expectedMessage, actualMessage);
+    }
+
+    @Test
+    @DisplayName("When all users sign up, they assume the role of a customer")
+    public void whenAUserSignsUp_CustomerRoleIsAssignedTest(){
+        signUpRequest.setFullName("Inemesit Udousoro");
+        signUpRequest.setEmail("ename@gmail.com");
+        signUpRequest.setPassword("I2emf.");
+
+        userRepository.save(user);
+
+        assertEquals(Role.USER, user.getRole());
     }
 
     @Test

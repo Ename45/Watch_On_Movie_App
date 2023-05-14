@@ -1,19 +1,26 @@
 package services;
 
 import com.sun.jdi.request.DuplicateRequestException;
+import data.models.Movie;
+import data.models.Role;
 import data.models.User;
+import data.repositories.MovieRepository;
 import data.repositories.UserRepository;
+import data.repositories.WatchOnMovieRepository;
 import dto.requests.LoginRequest;
 import dto.requests.SignUpRequest;
 import dto.responses.LoginResponse;
+import dto.responses.MovieAddedToUserListResponse;
 import dto.responses.SignUpResponse;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class WatchOnUserServices implements UserServices{
 
     UserRepository userRepository;
+    MovieRepository movieRepository = new WatchOnMovieRepository();
     private static final String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!.@#&()–{}:;',?/*~$^+=<>])" +
             ".{5,20}$";
     private static final String emailRegex = "^(?=.{1,64}@)[\\p{L}0-9+_-]+(\\.[\\p{L}0-9+_-]+)*@"
@@ -55,16 +62,28 @@ public class WatchOnUserServices implements UserServices{
 
         return getLoginResponse();
     }
+    @Override
+    public List<Movie> findAllMovies() {
+        return movieRepository.findAll();
+    }
 
+    @Override
+    public Movie findMovieByName(String movieName) {
+        return movieRepository.findByName(movieName);
+    }
 
+    @Override
+    public MovieAddedToUserListResponse saveMovieToUserList(String movieName) {
+        return null;
+    }
 
-
-
-
-
-
-
-
+//    @Override
+//    public String saveMovieToUserList(String movieName) {
+//        User user = new User();
+//        Movie movie = new Movie();
+//
+//        return null;
+//    }
 
 
 
@@ -117,6 +136,7 @@ public class WatchOnUserServices implements UserServices{
         user.setFullName(name);
         user.setEmail(email);
         user.setPassword(password);
+//        user.setRole(Role.valueOf(role.toUpperCase()));
         return user;
     }
 

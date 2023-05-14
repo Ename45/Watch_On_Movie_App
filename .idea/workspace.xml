@@ -5,9 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89e08033-c36e-40bb-8bba-f6a0c0b6db0d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/data/models/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dto/requests/AddNewMovieRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dto/responses/DeleteMovieResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dto/responses/MovieAddedToUserListResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/services/WatchOnAdminServicesTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/models/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/models/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/MovieRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/MovieRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnMovieRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnMovieRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnUserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dto/requests/SignUpRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dto/requests/SignUpRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/AdminServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/AdminServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/UserServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/UserServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/WatchOnAdminServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/WatchOnAdminServices.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/WatchOnUserServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/WatchOnUserServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/data/repositories/WatchOnAdminRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/data/repositories/WatchOnAdminRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/data/repositories/WatchOnMovieRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/data/repositories/WatchOnMovieRepositoryTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/services/WatchOnUserServicesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/WatchOnUserServicesTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,6 +36,7 @@
       <list>
         <option value="Interface" />
         <option value="JUnit5 Test Class" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -52,8 +69,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="dto.requests" />
       <recent name="dto.responses" />
+      <recent name="dto.requests" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -63,24 +80,17 @@
       <recent name="data.repositories" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="Watch_OnApp" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WatchOnUserRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.WatchOnUserServicesTest">
+    <configuration name="WatchOnAdminServicesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Watch_OnApp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="data.repositories.*" />
+          <option name="PATTERN" value="services.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="data.repositories" />
-      <option name="MAIN_CLASS_NAME" value="data.repositories.WatchOnUserRepositoryTest" />
+      <option name="PACKAGE_NAME" value="services" />
+      <option name="MAIN_CLASS_NAME" value="services.WatchOnAdminServicesTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -101,7 +111,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WatchOnUserServicesTest.userEmailIsValidTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WatchOnUserServicesTest.aUserCanSignUpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Watch_OnApp" />
       <extension name="coverage">
         <pattern>
@@ -111,13 +121,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="services" />
       <option name="MAIN_CLASS_NAME" value="services.WatchOnUserServicesTest" />
-      <option name="METHOD_NAME" value="userEmailIsValidTest" />
+      <option name="METHOD_NAME" value="aUserCanSignUpTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WatchOnUserServicesTest.userPasswordShouldHave_A_MixOfSpecifiedCharTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WatchOnUserServicesTest.whenAUserSignUpCustomerRoleIsAssignedTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Watch_OnApp" />
       <extension name="coverage">
         <pattern>
@@ -127,7 +137,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="services" />
       <option name="MAIN_CLASS_NAME" value="services.WatchOnUserServicesTest" />
-      <option name="METHOD_NAME" value="userPasswordShouldHave_A_MixOfSpecifiedCharTest" />
+      <option name="METHOD_NAME" value="whenAUserSignUpCustomerRoleIsAssignedTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WatchOnUserServicesTest.whenAUserSignsUp_CustomerRoleIsAssignedTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Watch_OnApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="services" />
+      <option name="MAIN_CLASS_NAME" value="services.WatchOnUserServicesTest" />
+      <option name="METHOD_NAME" value="whenAUserSignsUp_CustomerRoleIsAssignedTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -135,11 +161,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.WatchOnUserServicesTest" />
-        <item itemvalue="JUnit.WatchOnUserServicesTest.userEmailIsValidTest" />
-        <item itemvalue="JUnit.WatchOnUserRepositoryTest" />
-        <item itemvalue="JUnit.WatchOnUserServicesTest.userPasswordShouldHave_A_MixOfSpecifiedCharTest" />
+        <item itemvalue="JUnit.WatchOnUserServicesTest.whenAUserSignsUp_CustomerRoleIsAssignedTest" />
+        <item itemvalue="JUnit.WatchOnUserServicesTest.aUserCanSignUpTest" />
+        <item itemvalue="JUnit.WatchOnUserServicesTest.whenAUserSignUpCustomerRoleIsAssignedTest" />
+        <item itemvalue="JUnit.WatchOnAdminServicesTest" />
       </list>
     </recent_temporary>
   </component>
@@ -153,7 +179,7 @@
       <updated>1683363365499</updated>
       <workItem from="1683363366934" duration="26014000" />
       <workItem from="1683452460501" duration="20637000" />
-      <workItem from="1683516076895" duration="47709000" />
+      <workItem from="1683516076895" duration="75549000" />
     </task>
     <servers />
   </component>

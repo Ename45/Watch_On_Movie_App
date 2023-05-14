@@ -7,8 +7,4 @@ import java.util.List;
 
 public class Admin {
     private String adminId;
-    private String adminName;
-    private List<Movie> movies;
-
-
 }

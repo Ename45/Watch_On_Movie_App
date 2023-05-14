@@ -10,4 +10,5 @@ public class User {
     private String email;
     private String password;
     private List<String> movieId;
+    private Role role;
 }

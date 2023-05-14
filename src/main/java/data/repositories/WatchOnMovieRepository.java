@@ -11,13 +11,14 @@ public class WatchOnMovieRepository implements MovieRepository{
     private int idCount;
 
     @Override
-    public void save(Movie movie) {
+    public Movie save(Movie movie) {
         if (movie.getMovieId() != null){
             update(movie);
         }
         else {
             saveNewMovie(movie);
         }
+        return movie;
     }
 
     private void update(Movie movie) {
@@ -45,6 +46,16 @@ public class WatchOnMovieRepository implements MovieRepository{
         }
         return null;
     }
+    @Override
+    public Movie findByName(String movieName) {
+        Movie foundMovie = null;
+        for (Movie movie: movieList) {
+            if (movie.getMovieName().equals(movieName)){
+                foundMovie = movie;
+            }
+        }
+        return foundMovie;
+    }
 
     @Override
     public int countMovie() {
@@ -62,4 +73,13 @@ public class WatchOnMovieRepository implements MovieRepository{
         movieList.remove(foundMovieId);
         idCount--;
     }
+
+    @Override
+    public void deleteByName(String movieName) {
+        Movie foundMovie = findByName(movieName);
+        movieList.remove(foundMovie);
+        idCount--;
+    }
+
+
 }

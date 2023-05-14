@@ -77,6 +77,19 @@ class WatchOnMovieRepositoryTest {
     }
 
     @Test
+    @DisplayName("Find Movie by name")
+    public void saveOneMovie_findMovieByName_returnsSavedMovieTest() {
+        movie.setMovieName("Lord of the rings");
+        movieRepository.save(movie);
+
+        Movie foundMovie = movieRepository.findByName(movie.getMovieName());
+        assertNotNull(foundMovie.getMovieName());
+        assertEquals(movie, foundMovie);
+        assertEquals(1, movieRepository.countMovie());
+        assertEquals("Lord of the rings", movie.getMovieName());
+    }
+
+    @Test
     @DisplayName("Update test")
     public void saveTwoMoviesWithSameId_countIsOneTest(){
         movie.setMovieName("Lord of the rings");
@@ -100,8 +113,8 @@ class WatchOnMovieRepositoryTest {
     }
 
     @Test
-    @DisplayName("Delete test")
-    public void deleteUserTest(){
+    @DisplayName("Delete movie by id test")
+    public void deleteMovieByIdTest(){
         Movie movie = new Movie();
         Movie movie2 = new Movie();
         Movie movie3 = new Movie();
@@ -125,7 +138,34 @@ class WatchOnMovieRepositoryTest {
     }
 
     @Test
-    @DisplayName("Find all Users")
+    @DisplayName("Delete by movie name test")
+    public void deleteMovieByNameTest(){
+        Movie movie = new Movie();
+        Movie movie2 = new Movie();
+        Movie movie3 = new Movie();
+
+        movie.setMovieName("John Doe");
+        movie2.setMovieName("Avatar");
+        movie3.setMovieName("Arrows");
+
+        movieRepository.save(movie);
+        movieRepository.save(movie2);
+        movieRepository.save(movie3);
+
+        movieRepository.deleteByName(movie2.getMovieName());
+
+        assertEquals(2, movieRepository.countMovie());
+
+        Movie movie4 = new Movie();
+        movie4.setMovieName("Bridgeton");
+        movieRepository.save(movie4);
+
+        assertEquals(3, movieRepository.countMovie());
+        assertEquals("Bridgeton", movie4.getMovieName());
+    }
+
+    @Test
+    @DisplayName("Find all Movies")
     public void findAllAdminTest() {
         movie.setMovieName("Lord of the rings");
         movieRepository.save(movie);
