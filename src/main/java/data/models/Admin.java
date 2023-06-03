@@ -2,9 +2,8 @@ package data.models;
 
 import lombok.Data;
 
-import java.util.List;
 @Data
 
-public class Admin {
+public class Admin extends User{
     private String adminId;
 }

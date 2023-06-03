@@ -11,4 +11,5 @@ public class User {
     private String password;
     private List<String> movieId;
     private Role role;
+//    private boolean
 }

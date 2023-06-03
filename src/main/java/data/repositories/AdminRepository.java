@@ -1,6 +1,7 @@
 package data.repositories;
 
 import data.models.Admin;
+import data.models.User;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package data.repositories;
 
+//import data.models.Role;
 import data.models.Role;
 import data.models.User;
 
@@ -30,7 +31,7 @@ public class WatchOnUserRepository implements UserRepository{
     private void saveNewUser(User user) {
         String id = generateId();
         user.setUserId(id);
-        user.setRole(Role.USER);
+//        user.setRole(Role.USER);
         userList.add(user);
     }
 
@@ -61,17 +62,40 @@ public class WatchOnUserRepository implements UserRepository{
 
     @Override
     public User findByName(String name) {
+        User foundUser = null;
         for (User user: userList) {
             if (user.getFullName().equals(name)){
-                return user;
+                foundUser = user;
             }
         }
-        return null;
+        return foundUser;
+    }
+
+    @Override
+    public User findByRole(Role role) {
+        User foundRole = null;
+        for (User user: userList) {
+            if (user.getRole().equals(role)){
+                foundRole = user;
+            }
+        }
+        return foundRole;
     }
 
     @Override
     public int countUser() {
         return userList.size();
+    }
+
+    @Override
+    public int countByRole(Role role) {
+        int count = 0;
+        for (User user : userList) {
+            if (user.getRole() == role) {
+                count++;
+            }
+        }
+        return count;
     }
 
     @Override

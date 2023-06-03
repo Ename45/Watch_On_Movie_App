@@ -5,25 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89e08033-c36e-40bb-8bba-f6a0c0b6db0d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/data/models/Role.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dto/requests/AddNewMovieRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dto/responses/DeleteMovieResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dto/responses/MovieAddedToUserListResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/services/WatchOnAdminServicesTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dto/responses/MovieAddedToDatabaseResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dto/responses/MovieSharedResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/data/models/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/models/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/models/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/models/Role.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/data/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/AdminRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/AdminRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/MovieRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/MovieRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnAdminRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnAdminRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnMovieRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnMovieRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnUserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dto/requests/SignUpRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dto/requests/SignUpRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dto/requests/AddNewMovieRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dto/requests/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dto/requests/LoginRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dto/responses/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dto/responses/LoginResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/AdminServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/AdminServices.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/UserServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/UserServices.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/WatchOnAdminServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/WatchOnAdminServices.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/WatchOnUserServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/WatchOnUserServices.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/data/repositories/WatchOnAdminRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/data/repositories/WatchOnAdminRepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/data/repositories/WatchOnMovieRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/data/repositories/WatchOnMovieRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/data/repositories/WatchOnUserRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/data/repositories/WatchOnUserRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/services/WatchOnAdminServicesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/WatchOnAdminServicesTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/services/WatchOnUserServicesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/WatchOnUserServicesTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,6 +53,13 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="2PPesgDDeBryYREvAg15AeSiXt1" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -63,8 +76,10 @@
     "WebServerToolWindowFactoryState": "false",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "last_opened_file_path": "C:/Users/USER/IdeaProjects/WatchOn",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propGUI"
+    "settings.editor.selected.configurable": "project.propGUI",
+    "spring.configuration.checksum": "f39d7c936ad6a450bf15c6175bf5203d"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -80,9 +95,9 @@
       <recent name="data.repositories" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.WatchOnUserServicesTest">
-    <configuration name="WatchOnAdminServicesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Watch_OnApp" />
+  <component name="RunManager" selected="JUnit.WatchOnAdminServicesTest.anAdminCanAddAMovieTest">
+    <configuration name="WatchOnAdminServicesTest.anAdminCanAddAMovieTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="WatchOn" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="services.*" />
@@ -91,44 +106,14 @@
       </extension>
       <option name="PACKAGE_NAME" value="services" />
       <option name="MAIN_CLASS_NAME" value="services.WatchOnAdminServicesTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WatchOnUserServicesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Watch_OnApp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="services" />
-      <option name="MAIN_CLASS_NAME" value="services.WatchOnUserServicesTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WatchOnUserServicesTest.aUserCanSignUpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Watch_OnApp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="services" />
-      <option name="MAIN_CLASS_NAME" value="services.WatchOnUserServicesTest" />
-      <option name="METHOD_NAME" value="aUserCanSignUpTest" />
+      <option name="METHOD_NAME" value="anAdminCanAddAMovieTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WatchOnUserServicesTest.whenAUserSignUpCustomerRoleIsAssignedTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Watch_OnApp" />
+    <configuration name="WatchOnUserServicesTest.aUserCanLoginTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="WatchOn" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="services.*" />
@@ -137,14 +122,14 @@
       </extension>
       <option name="PACKAGE_NAME" value="services" />
       <option name="MAIN_CLASS_NAME" value="services.WatchOnUserServicesTest" />
-      <option name="METHOD_NAME" value="whenAUserSignUpCustomerRoleIsAssignedTest" />
+      <option name="METHOD_NAME" value="aUserCanLoginTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WatchOnUserServicesTest.whenAUserSignsUp_CustomerRoleIsAssignedTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Watch_OnApp" />
+    <configuration name="WatchOnUserServicesTest.aUserCannotLoginWithAWrongPasswordTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="WatchOn" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="services.*" />
@@ -153,7 +138,39 @@
       </extension>
       <option name="PACKAGE_NAME" value="services" />
       <option name="MAIN_CLASS_NAME" value="services.WatchOnUserServicesTest" />
-      <option name="METHOD_NAME" value="whenAUserSignsUp_CustomerRoleIsAssignedTest" />
+      <option name="METHOD_NAME" value="aUserCannotLoginWithAWrongPasswordTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WatchOnUserServicesTest.twoUserCanSignUpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="WatchOn" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="services" />
+      <option name="MAIN_CLASS_NAME" value="services.WatchOnUserServicesTest" />
+      <option name="METHOD_NAME" value="twoUserCanSignUpTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WatchOnUserServicesTest.userCantSignUpMoreThanOnceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="WatchOn" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="services" />
+      <option name="MAIN_CLASS_NAME" value="services.WatchOnUserServicesTest" />
+      <option name="METHOD_NAME" value="userCantSignUpMoreThanOnceTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -161,11 +178,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.WatchOnUserServicesTest" />
-        <item itemvalue="JUnit.WatchOnUserServicesTest.whenAUserSignsUp_CustomerRoleIsAssignedTest" />
-        <item itemvalue="JUnit.WatchOnUserServicesTest.aUserCanSignUpTest" />
-        <item itemvalue="JUnit.WatchOnUserServicesTest.whenAUserSignUpCustomerRoleIsAssignedTest" />
-        <item itemvalue="JUnit.WatchOnAdminServicesTest" />
+        <item itemvalue="JUnit.WatchOnAdminServicesTest.anAdminCanAddAMovieTest" />
+        <item itemvalue="JUnit.WatchOnUserServicesTest.aUserCannotLoginWithAWrongPasswordTest" />
+        <item itemvalue="JUnit.WatchOnUserServicesTest.aUserCanLoginTest" />
+        <item itemvalue="JUnit.WatchOnUserServicesTest.userCantSignUpMoreThanOnceTest" />
+        <item itemvalue="JUnit.WatchOnUserServicesTest.twoUserCanSignUpTest" />
       </list>
     </recent_temporary>
   </component>
@@ -179,7 +196,12 @@
       <updated>1683363365499</updated>
       <workItem from="1683363366934" duration="26014000" />
       <workItem from="1683452460501" duration="20637000" />
-      <workItem from="1683516076895" duration="75549000" />
+      <workItem from="1683516076895" duration="87899000" />
+      <workItem from="1684731949119" duration="172000" />
+      <workItem from="1684820680552" duration="48000" />
+      <workItem from="1684820791499" duration="926000" />
+      <workItem from="1684822648515" duration="19242000" />
+      <workItem from="1685416478640" duration="48501000" />
     </task>
     <servers />
   </component>

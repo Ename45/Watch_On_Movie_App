@@ -4,15 +4,12 @@ import com.sun.jdi.request.DuplicateRequestException;
 import data.models.Movie;
 import data.models.Role;
 import data.models.User;
-import data.repositories.MovieRepository;
-import data.repositories.UserRepository;
-import data.repositories.WatchOnMovieRepository;
+import data.repositories.*;
 import dto.requests.LoginRequest;
 import dto.requests.SignUpRequest;
-import dto.responses.LoginResponse;
-import dto.responses.MovieAddedToUserListResponse;
-import dto.responses.SignUpResponse;
+import dto.responses.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,8 +22,12 @@ public class WatchOnUserServices implements UserServices{
             ".{5,20}$";
     private static final String emailRegex = "^(?=.{1,64}@)[\\p{L}0-9+_-]+(\\.[\\p{L}0-9+_-]+)*@"
             + "[^-][\\p{L}0-9+-]+(\\.[\\p{L}0-9+-]+)*(\\.\\p{L}{2,})$";
+
+    private static final String companyPasswordRegex = "^wOc1\\d{2}2xxX$";
+
     static Pattern passwordPattern = Pattern.compile(passwordRegex);
     static Pattern emailPattern = Pattern.compile(emailRegex);
+    static Pattern companyPasswordPattern = Pattern.compile(companyPasswordRegex);
 
     public WatchOnUserServices(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -39,10 +40,17 @@ public class WatchOnUserServices implements UserServices{
         String password = signUpRequest.getPassword();
 
         emailValidator(email);
-        passwordValidator(password);
         checkThatUserIsNotSignedUp(name, email);
 
+        passwordValidator(password);
+
         User user = setDetailsOfNewUser(name, email, password);
+        if (companyPasswordPattern.matcher(password).matches()) {
+            user.setRole(Role.ADMIN);
+        } else {
+            user.setRole(Role.USER);
+        }
+
         userRepository.save(user);
 
         return getSignUpResponse();
@@ -60,52 +68,63 @@ public class WatchOnUserServices implements UserServices{
 
         verifyThatPasswordMatchesExistingUser(password, user);
 
-        return getLoginResponse();
+
+        return getLoginResponse(user);
     }
+
     @Override
     public List<Movie> findAllMovies() {
         return movieRepository.findAll();
     }
-
     @Override
     public Movie findMovieByName(String movieName) {
         return movieRepository.findByName(movieName);
     }
+    @Override
+    public MovieAddedToUserListResponse saveMovieToUserList(String movieId) {
+        Movie movie = movieRepository.findById(movieId);
+
+        if (movie == null) {
+            throw new IllegalArgumentException("Movie not found.");
+        }
+
+        User user = new User();
+
+        List<String> movieIds = user.getMovieId();
+        if (movieIds == null) {
+            movieIds = new ArrayList<>();
+        }
+
+        movieIds.add(movieId);
+        user.setMovieId(movieIds);
+
+        userRepository.save(user);
+
+        MovieAddedToUserListResponse movieAddedToUserListResponse = new MovieAddedToUserListResponse();
+        movieAddedToUserListResponse.setMessage("Movie added to your list.");
+
+        return movieAddedToUserListResponse;
+    }
 
     @Override
-    public MovieAddedToUserListResponse saveMovieToUserList(String movieName) {
+    public MovieSharedResponse shareMovie(String movieId) {
         return null;
     }
 
-//    @Override
-//    public String saveMovieToUserList(String movieName) {
-//        User user = new User();
-//        Movie movie = new Movie();
-//
-//        return null;
-//    }
+    @Override
+    public void deleteMovieFromUserList(String movieId) {
 
+    }
 
+    @Override
+    public User findUsersByRole(Role role) {
+        return userRepository.findByRole(role);
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    public User findUserById(String userId) {
+        return userRepository.findById(userId);
+    }
 
 
     private static void emailValidator(String email) {
@@ -115,11 +134,23 @@ public class WatchOnUserServices implements UserServices{
         }
     }
 
-    private static void passwordValidator(String password) {
+//    private static void passwordValidator(String password) {
+//        companyPasswordValidator(password);
+//        userPasswordValidator(password);
+//    }
+
+    private static void userPasswordValidator(String password) {
         Matcher matcher = passwordPattern.matcher(password);
         if (!matcher.matches()){
             throw new IllegalArgumentException("Password should have at least 1(capital letter, " +
                     "small letter, number, and a special character). Should be 5 characters or more.");
+        }
+    }
+
+    private static void passwordValidator(String password) {
+        Matcher matcher = companyPasswordPattern.matcher(password);
+        if (!matcher.matches()){
+            userPasswordValidator(password);
         }
     }
 
@@ -136,7 +167,6 @@ public class WatchOnUserServices implements UserServices{
         user.setFullName(name);
         user.setEmail(email);
         user.setPassword(password);
-//        user.setRole(Role.valueOf(role.toUpperCase()));
         return user;
     }
 
@@ -159,11 +189,20 @@ public class WatchOnUserServices implements UserServices{
         }
     }
 
-    private static LoginResponse getLoginResponse() {
+    private static LoginResponse getLoginResponse(User user) {
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setMessage("Logged in.");
+        loginResponse.setEmail(user.getEmail());
+        loginResponse.setFullName(user.getFullName());
+        loginResponse.setMovieId(user.getMovieId());
+        loginResponse.setRole(user.getRole());
         return loginResponse;
     }
 
 
+//
+//    private Role getCurrentUserRole() {
+//        User user = new User();;
+//        return user.getRole();
+//    }
 }

@@ -1,17 +1,25 @@
 package services;
 
 import com.sun.jdi.request.DuplicateRequestException;
+//import data.models.Role;
+import data.models.Movie;
 import data.models.Role;
 import data.models.User;
-import data.repositories.UserRepository;
-import data.repositories.WatchOnUserRepository;
+import data.repositories.*;
 import dto.requests.LoginRequest;
+import dto.requests.NewMovieDetailsRequest;
 import dto.requests.SignUpRequest;
 import dto.responses.LoginResponse;
+import dto.responses.MovieAddedToDatabaseResponse;
+import dto.responses.MovieAddedToUserListResponse;
 import dto.responses.SignUpResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,20 +27,29 @@ class WatchOnUserServicesTest {
     User user;
     UserRepository userRepository;
     UserServices userServices;
+    AdminServices adminServices;
     SignUpRequest signUpRequest;
     SignUpResponse signUpResponse;
     LoginRequest loginRequest;
     LoginResponse loginResponse;
+
+    MovieRepository movieRepository;
+    Movie movie;
+    NewMovieDetailsRequest newMovieDetailsRequest;
 
     @BeforeEach
     void setUp() {
         user = new User();
         userRepository = new WatchOnUserRepository();
         userServices = new WatchOnUserServices(userRepository);
+        adminServices = new WatchOnAdminServices();
         signUpRequest = new SignUpRequest();
         signUpResponse = new SignUpResponse();
         loginRequest = new LoginRequest();
         loginResponse = new LoginResponse();
+        movie = new Movie();
+        movieRepository = new WatchOnMovieRepository();
+        newMovieDetailsRequest = new NewMovieDetailsRequest();
     }
 
     @Test
@@ -47,26 +64,47 @@ class WatchOnUserServicesTest {
         signUpRequest.setEmail("ename@gmail.com");
         signUpRequest.setPassword("I2emf.");
 
+        SignUpRequest signUpRequest2 = new SignUpRequest();
+        signUpRequest2.setFullName("Eddy Udousoro");
+        signUpRequest2.setEmail("eddy@gmail.com");
+        signUpRequest2.setPassword("wOc1472xxX");
 
         String expectedMessage = "Sign Up successful. Check your email for a link to login";
-        String actualMessage = userServices.signUp(signUpRequest).getMessage();
-        assertEquals(expectedMessage, actualMessage);
+        String userMessage = userServices.signUp(signUpRequest).getMessage();
+        String adminMessage = userServices.signUp(signUpRequest2).getMessage();
+        assertEquals(expectedMessage, userMessage);
+        assertEquals(expectedMessage, adminMessage);
     }
 
     @Test
-    @DisplayName("When all users sign up, they assume the role of a customer")
-    public void whenAUserSignsUp_CustomerRoleIsAssignedTest(){
-        signUpRequest.setFullName("Inemesit Udousoro");
-        signUpRequest.setEmail("ename@gmail.com");
-        signUpRequest.setPassword("I2emf.");
+    @DisplayName("A user is assigned the correct role based on the password pattern")
+    public void testSignUpAssignsRoleBasedOnPasswordPattern() {
 
-        userRepository.save(user);
+        SignUpRequest adminSignUpRequest = new SignUpRequest();
+        adminSignUpRequest.setFullName("John Doe");
+        adminSignUpRequest.setEmail("john.doe@example.com");
+        adminSignUpRequest.setPassword("wOc1472xxX");
 
-        assertEquals(Role.USER, user.getRole());
+
+        SignUpRequest userSignUpRequest = new SignUpRequest();
+        userSignUpRequest.setFullName("Jane Smith");
+        userSignUpRequest.setEmail("janesmith@example.com");
+        userSignUpRequest.setPassword("I2emf.");
+
+        userServices.signUp(adminSignUpRequest);
+
+        userServices.signUp(userSignUpRequest);
+
+        List<User> users = userRepository.findAll();
+        assertEquals(Role.ADMIN, users.get(0).getRole());
+        assertEquals(Role.USER, users.get(1).getRole());
+
+        assertEquals(1, userRepository.countByRole(Role.ADMIN));
+        assertEquals(1, userRepository.countByRole(Role.USER));
     }
 
     @Test
-    @DisplayName("Two different users can signUp")
+    @DisplayName("different users can signUp")
     public void twoUserCanSignUpTest(){
         signUpRequest.setFullName("Inemesit Udousoro");
         signUpRequest.setEmail("ename@gmail.com");
@@ -74,12 +112,33 @@ class WatchOnUserServicesTest {
         userServices.signUp(signUpRequest);
 
         SignUpRequest signUpRequest2 = new SignUpRequest();
-        signUpRequest2.setFullName("Legends Browse");
-        signUpRequest2.setEmail("leg@gmail.com");
-        signUpRequest2.setPassword("L3g8u.");
+        signUpRequest2.setFullName("Unwana Udousoro");
+        signUpRequest2.setEmail("wanz@gmail.com");
+        signUpRequest2.setPassword("U3aw.");
         userServices.signUp(signUpRequest2);
 
-        assertEquals(2, userRepository.countUser());
+        SignUpRequest signUpRequest3 = new SignUpRequest();
+        signUpRequest3.setFullName("Legends Browse");
+        signUpRequest3.setEmail("leg@gmail.com");
+        signUpRequest3.setPassword("wOc1472xxX");
+        userServices.signUp(signUpRequest3);
+
+        SignUpRequest signUpRequest4 = new SignUpRequest();
+        signUpRequest4.setFullName("Oluchi Browse");
+        signUpRequest4.setEmail("olu@gmail.com");
+        signUpRequest4.setPassword("wOc1482xxX");
+        userServices.signUp(signUpRequest4);
+
+        assertEquals(4, userRepository.countUser());
+
+        assertEquals(2, userRepository.countByRole(Role.ADMIN));
+        assertEquals(2, userRepository.countByRole(Role.USER));
+
+        List<User> users = userRepository.findAll();
+        assertEquals(Role.USER, users.get(0).getRole());
+        assertEquals(Role.USER, users.get(1).getRole());
+        assertEquals(Role.ADMIN, users.get(2).getRole());
+        assertEquals(Role.ADMIN, users.get(3).getRole());
     }
 
     @Test
@@ -156,16 +215,25 @@ class WatchOnUserServicesTest {
         signUpRequest.setFullName("Inemesit Udousoro");
         signUpRequest.setEmail("ename@gmail.com");
         signUpRequest.setPassword("In4m.");
-
         userServices.signUp(signUpRequest);
-
         loginRequest.setEmail("ename@gmail.com");
         loginRequest.setPassword("In4m.");
 
+        SignUpRequest signUpRequest2 = new SignUpRequest();
+        signUpRequest2.setFullName("Legends Browse");
+        signUpRequest2.setEmail("leg@gmail.com");
+        signUpRequest2.setPassword("wOc1472xxX");
+        userServices.signUp(signUpRequest2);
+        LoginRequest loginRequest2 = new LoginRequest();
+        loginRequest2.setEmail("ename@gmail.com");
+        loginRequest2.setPassword("In4m.");
+
 
         String expectedMessage = "Logged in.";
-        String actualMessage = userServices.login(loginRequest).getMessage();
-        assertEquals(expectedMessage, actualMessage);
+        String userMessage = userServices.login(loginRequest).getMessage();
+        String user2Message = userServices.login(loginRequest2).getMessage();
+        assertEquals(expectedMessage, userMessage);
+        assertEquals(expectedMessage, user2Message);
     }
 
     @Test
@@ -203,11 +271,34 @@ class WatchOnUserServicesTest {
         userServices.signUp(signUpRequest);
 
         loginRequest.setEmail("ename@gmail.com");
-        loginRequest.setPassword("In5g.");
+        loginRequest.setPassword("wOc1472xxX");
 
 
         assertThrows(IllegalArgumentException.class, ()-> userServices.login(loginRequest));
     }
 
+    //        @Test
+//    void saveMovieToUserList_ValidMovieId_Successful() {
+//        // Arrange
+//        String movieId = "123";
+//        Movie movie = new Movie();
+//        movie.setMovieId(movieId);
+//        User user = new User();
+//        List<String> movieIds = new ArrayList<>();
+//        user.setMovieId(movieIds);
+//
+//        MovieAddedToUserListResponse response = userServices.saveMovieToUserList(movieId);
+//
+//        assertNotNull(response);
+//        assertEquals("Movie added to your list.", response.getMessage());
+//        assertTrue(user.getMovieId().contains(movieId));
+//    }
+//
+//    @Test
+//    void saveMovieToUserList_InvalidMovieId_ThrowsException() {
+//        // Arrange
+//        String movieId = "123";
+//        assertThrows(IllegalArgumentException.class, () -> userServices.saveMovieToUserList(movieId));
+//    }
 
 }

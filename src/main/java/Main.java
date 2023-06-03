@@ -1,3 +1,4 @@
+import data.models.Role;
 import data.models.User;
 import data.repositories.UserRepository;
 import data.repositories.WatchOnUserRepository;
@@ -15,7 +16,9 @@ import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
-        displayMenu();
+//        displayMenu();
+//        watchOnServiceMenu();
+        System.out.println(Role.valueOf("admin"));
     }
 
     private static final String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!.@#&()–{}:;',?/*~$^+=<>])" +
@@ -33,15 +36,15 @@ public class Main {
 //    static Scanner scanner = new Scanner(System.in);
 
     private static void displayMenu() {
-        String MainMenu = ("""
+        String mainMenu = ("""
                 Welcome to Watch_On. Have a blast with our plethora of movies
                 Enter 1 -> SignUp
                       2 -> Login
                 """);
-        String userEntryChoice = input(MainMenu);
+        String userEntryChoice = input(mainMenu);
         while (!userEntryChoice.equals("1") && !userEntryChoice.equals("2")){
             display("Wrong entry. Pick from available options");
-            userEntryChoice = input(MainMenu);
+            userEntryChoice = input(mainMenu);
         }
         if (userEntryChoice.equals("1")){
             signUp();
@@ -49,6 +52,42 @@ public class Main {
         }
         else {
             login();
+        }
+    }
+
+    private static void watchOnServiceMenu() {
+        String userServiceMenu = ("""
+                What would you like to do?
+                Enter 1 -> Find all movies
+                      2 -> Find movie by name
+                      3 -> add movie to my movie list
+                      4 -> share movie
+                """);
+        String userChoice = input(userServiceMenu);
+        switch (userChoice) {
+            case "1" -> userServices.findAllMovies();
+
+            case "2" -> findMovieByName();
+            case "3" -> userServices.saveMovieToUserList("");
+//            case "4" -> userServices.shareMovie();
+            default -> {
+                errorMessage();
+                watchOnServiceMenu();
+            }
+        }
+    }
+
+
+
+
+    private static void errorMessage() {
+        display("Invalid input. Pick a number from those displayed in the menu");
+    }
+
+    private static void findMovieByName(){
+        String movieName = input("Search for movie by name");
+        if (movieName != null){
+            userServices.findMovieByName(movieName);
         }
     }
 
@@ -66,12 +105,37 @@ public class Main {
             loginRequest.setEmail(email);
             loginRequest.setPassword(password);
             loginResponse = userServices.login(loginRequest);
+            if (loginResponse.getRole() == Role.ADMIN){
+              String option = input("enter 1 for user\n enter 2 for admin ");
+              switch (option){
+
+                  case "1":
+                      userPlatform();
+//                  case "2": adminController.addMovieToDatabase("sgfhj");
+              }
+            }
+            else if (loginResponse.getRole() == Role.USER){
+                System.out.println(Role.USER);
+            }
             display(loginResponse.getMessage());
 
         }
         else display("User does not exist");
 
-        displayMenu();
+//        displayMenu();
+    }
+
+    private static void userPlatform() {
+        String option = input("enter 1 to save movie\n enter 2 to find movie");
+        if (option.equals( "1")) {
+
+//            userController.saveMovieToUserList("1");
+        }
+        if (option.equals("2")){
+            String nameOfMovie = input("Enter the name of the movie ");
+//            userController.findMovieByName(nameOfMovie);
+        }
+
     }
 
     private static void signUp() {
@@ -104,6 +168,7 @@ public class Main {
         user.setPassword(password);
 
         signUpResponse = userServices.signUp(signUpRequest);
+
 
         display(signUpResponse.getMessage());
         displayMenu();

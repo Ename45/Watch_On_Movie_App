@@ -1,5 +1,6 @@
 package data.repositories;
 
+import data.models.Role;
 import data.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -126,6 +127,30 @@ class WatchOnUserRepositoryTest {
         assertEquals(foundUser, secondUser);
         assertEquals("1", user.getUserId());
         assertNotEquals(foundUser, user);
+    }
+
+    @Test
+    @DisplayName("Count By Role")
+    public void countUsersByRoleTest(){
+        user.setFullName("inem");
+        user.setRole(Role.USER);
+
+        userRepository.save(user);
+        int savedOneUser = userRepository.countByRole(Role.USER);
+        assertEquals(1, savedOneUser);
+        assertEquals(0, userRepository.countByRole(Role.ADMIN));
+
+
+        User secondUser = new User();
+        user.setFullName("Legends");
+        user.setRole(Role.ADMIN);
+
+        userRepository.save(secondUser);
+
+        int savedOneAdmin = userRepository.countByRole(Role.ADMIN);
+
+        assertEquals(1, savedOneAdmin);
+        assertEquals(2, userRepository.findAll().size());
     }
 
     @Test
