@@ -9,7 +9,6 @@ import dto.requests.LoginRequest;
 import dto.requests.SignUpRequest;
 import dto.responses.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -76,29 +75,24 @@ public class WatchOnUserServices implements UserServices{
     public List<Movie> findAllMovies() {
         return movieRepository.findAll();
     }
+
     @Override
     public Movie findMovieByName(String movieName) {
         return movieRepository.findByName(movieName);
     }
+
     @Override
-    public MovieAddedToUserListResponse saveMovieToUserList(String movieId) {
-        Movie movie = movieRepository.findById(movieId);
+    public MovieAddedToUserListResponse saveMovieToUserList(String movieName, User foundUser) {
+        Movie movie = findMovieByName(movieName);
 
         if (movie == null) {
             throw new IllegalArgumentException("Movie not found.");
         }
 
-        User user = new User();
+        foundUser = userRepository.findByEmail(foundUser.getEmail());
+        foundUser.getMovieId().add(movie.getMovieId());
 
-        List<String> movieIds = user.getMovieId();
-        if (movieIds == null) {
-            movieIds = new ArrayList<>();
-        }
-
-        movieIds.add(movieId);
-        user.setMovieId(movieIds);
-
-        userRepository.save(user);
+        userRepository.save(foundUser);
 
         MovieAddedToUserListResponse movieAddedToUserListResponse = new MovieAddedToUserListResponse();
         movieAddedToUserListResponse.setMessage("Movie added to your list.");
@@ -107,13 +101,27 @@ public class WatchOnUserServices implements UserServices{
     }
 
     @Override
-    public MovieSharedResponse shareMovie(String movieId) {
-        return null;
+    public MovieSharedResponse shareMovie(String movieId, String senderId, String receiverId) {
+
+        User sender = findUserById(senderId);
+        User receiver = findUserById(receiverId);
+
+//        sender.sendMovie(movieId);
+//        receiver.receiveMovie(movieId);
+
+        MovieSharedResponse movieSharedResponse = new MovieSharedResponse();
+        movieSharedResponse.setMessage("sent movie to" + receiver.getFullName());
+
+        return movieSharedResponse;
     }
 
     @Override
-    public void deleteMovieFromUserList(String movieId) {
+    public void deleteMovieFromUserListById(String movieId, User currentUser) {
+        List <String> movieList = currentUser.getMovieId();
 
+        for (String movie: movieList) {
+            if (movie.getMovieId == movieId ) movieList.remove(movieId);
+        }
     }
 
     @Override
@@ -125,6 +133,21 @@ public class WatchOnUserServices implements UserServices{
     public User findUserById(String userId) {
         return userRepository.findById(userId);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     private static void emailValidator(String email) {
@@ -194,15 +217,8 @@ public class WatchOnUserServices implements UserServices{
         loginResponse.setMessage("Logged in.");
         loginResponse.setEmail(user.getEmail());
         loginResponse.setFullName(user.getFullName());
-        loginResponse.setMovieId(user.getMovieId());
+        loginResponse.setMovieId(List.of("...movies"));
         loginResponse.setRole(user.getRole());
         return loginResponse;
     }
-
-
-//
-//    private Role getCurrentUserRole() {
-//        User user = new User();;
-//        return user.getRole();
-//    }
 }

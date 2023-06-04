@@ -277,27 +277,45 @@ class WatchOnUserServicesTest {
         assertThrows(IllegalArgumentException.class, ()-> userServices.login(loginRequest));
     }
 
-    //        @Test
-//    void saveMovieToUserList_ValidMovieId_Successful() {
-//        // Arrange
-//        String movieId = "123";
-//        Movie movie = new Movie();
-//        movie.setMovieId(movieId);
-//        User user = new User();
-//        List<String> movieIds = new ArrayList<>();
-//        user.setMovieId(movieIds);
+//    @Test
+//    void saveMovieToUserList_Successful() {
+//        NewMovieDetailsRequest newMovieDetailsRequest = new NewMovieDetailsRequest();
+//        newMovieDetailsRequest.setRole(Role.ADMIN);
 //
-//        MovieAddedToUserListResponse response = userServices.saveMovieToUserList(movieId);
+//        newMovieDetailsRequest.setMovieName("Lord of the rings");
+//        adminServices.addMovieToDatabase(newMovieDetailsRequest);
+//
+//        List<Movie> allMovies = adminServices.findAllMovies();
+//        System.out.println(allMovies);
+////        userServices.findAllMovies().contains()
+//
+//
+//
+//
+//        signUpRequest.setFullName("Joie");
+//        signUpRequest.setEmail("joe@gmail.com");
+//        signUpRequest.setPassword("In3m.");
+//        userServices.signUp(signUpRequest);
+//
+//        loginRequest.setEmail("joe@gmail.com");
+//        loginRequest.setPassword("In3m.");
+//        loginResponse = userServices.login(loginRequest);
+//
+//        User currentUser = userServices.findUserById(user.getUserId());
+//
+//        String movieName = "Lord of the rings";
+//        MovieAddedToUserListResponse response = userServices.saveMovieToUserList(movieName, currentUser);
+//
+//
 //
 //        assertNotNull(response);
 //        assertEquals("Movie added to your list.", response.getMessage());
-//        assertTrue(user.getMovieId().contains(movieId));
+////        assertTrue(user.getMovieId().contains(foundMovie.getMovieId()));
 //    }
-//
+
 //    @Test
 //    void saveMovieToUserList_InvalidMovieId_ThrowsException() {
-//        // Arrange
-//        String movieId = "123";
+//        String movieId = "1";
 //        assertThrows(IllegalArgumentException.class, () -> userServices.saveMovieToUserList(movieId));
 //    }
 

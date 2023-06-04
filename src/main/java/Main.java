@@ -68,7 +68,7 @@ public class Main {
             case "1" -> userServices.findAllMovies();
 
             case "2" -> findMovieByName();
-            case "3" -> userServices.saveMovieToUserList("");
+//            case "3" -> userServices.saveMovieToUserList("");
 //            case "4" -> userServices.shareMovie();
             default -> {
                 errorMessage();

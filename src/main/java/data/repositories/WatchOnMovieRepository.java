@@ -5,6 +5,7 @@ import data.models.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class WatchOnMovieRepository implements MovieRepository{
     List<Movie> movieList = new ArrayList<>();
@@ -39,23 +40,32 @@ public class WatchOnMovieRepository implements MovieRepository{
 
     @Override
     public Movie findById(String id) {
+        Movie foundMovieId = null;
         for (Movie movie: movieList) {
             if (movie.getMovieId().equals(id)){
-                return movie;
+                foundMovieId = movie;
             }
+        }
+        return foundMovieId;
+    }
+
+    @Override
+    public Movie findByName(String movieName) {
+        for(Movie foundMovie : movieList){
+            if (Objects.equals(foundMovie.getMovieName(),movieName)) return foundMovie;
         }
         return null;
     }
-    @Override
-    public Movie findByName(String movieName) {
-        Movie foundMovie = null;
-        for (Movie movie: movieList) {
-            if (movie.getMovieName().equals(movieName)){
-                foundMovie = movie;
-            }
-        }
-        return foundMovie;
-    }
+//    @Override
+//    public Movie findByName(String movieName) {
+//        Movie foundMovie = null;
+//        for (Movie movie: movieList) {
+//            if (movie.getMovieName().equals(movieName)){
+//                foundMovie = movie;
+//            }
+//        }
+//        return foundMovie;
+//    }
 
     @Override
     public int countMovie() {

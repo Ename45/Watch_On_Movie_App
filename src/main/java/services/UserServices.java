@@ -11,17 +11,24 @@ import dto.responses.*;
 import java.util.List;
 
 public interface UserServices {
-    public SignUpResponse signUp (SignUpRequest signUpRequest);
-    public LoginResponse login (LoginRequest loginRequest);
-    List<Movie> findAllMovies();
-    User findUsersByRole(Role role);
-    User findUserById(String userId);
-    Movie findMovieByName(String movieName);
-    MovieAddedToUserListResponse saveMovieToUserList(String movieId);
-    MovieSharedResponse shareMovie(String movieId);
-    void deleteMovieFromUserList(String movieId);
+    public SignUpResponse signUp(SignUpRequest signUpRequest);
 
-//    STRICTLY ADMIN ROLES
-//    MovieAddedToDatabaseResponse addMovieToDatabase(NewMovieDetailsRequest newMovieDetailsRequest);
-//    DeleteMovieResponse deleteMovieFromDatabase (String movieId);
+    public LoginResponse login(LoginRequest loginRequest);
+
+    List<Movie> findAllMovies();
+
+    User findUserById(String userId);
+
+    Movie findMovieByName(String movieName);
+
+    MovieAddedToUserListResponse saveMovieToUserList(String movieName, User foundUser);
+
+    MovieSharedResponse shareMovie(String movieId, String senderId, String receiverId);
+
+    void deleteMovieFromUserListById(String movieId);
+
+//    void deleteMovieFromUserListByName(String movieName);
+
+    User findUsersByRole(Role role);
+
 }

@@ -1,5 +1,6 @@
 package dto.requests;
 
+import data.models.Role;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -8,7 +9,8 @@ import java.time.LocalDateTime;
 public class NewMovieDetailsRequest {
     private String movieName;
     private String genre;
-    private String userId;
+//    private String userId;
+    private Role role;
     private LocalDateTime year;
     private String producer;
 }

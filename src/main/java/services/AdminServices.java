@@ -1,7 +1,9 @@
 package services;
 
 import data.models.Movie;
+import data.models.User;
 import dto.requests.NewMovieDetailsRequest;
+//import dto.requests.UserIdToCheckRequest;
 import dto.responses.DeleteMovieResponse;
 import dto.responses.MovieAddedToDatabaseResponse;
 

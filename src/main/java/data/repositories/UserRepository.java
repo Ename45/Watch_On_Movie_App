@@ -14,7 +14,5 @@ public interface UserRepository {
     int countUser();
     int countByRole(Role role);
     List<User> findAll();
-
-
     void deleteById(String id);
 }
