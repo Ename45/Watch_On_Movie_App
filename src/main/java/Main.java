@@ -31,8 +31,8 @@ public class Main {
     static SignUpResponse signUpResponse = new SignUpResponse();
     static LoginRequest loginRequest = new LoginRequest();
     static LoginResponse loginResponse = new LoginResponse();
-    static UserRepository userRepository = new WatchOnUserRepository();
-    static UserServices userServices = new WatchOnUserServices(userRepository);
+//    static UserRepository userRepository = new WatchOnUserRepository();
+    static UserServices userServices = WatchOnUserServices.getInstance();
 //    static Scanner scanner = new Scanner(System.in);
 
     private static void displayMenu() {
@@ -95,7 +95,8 @@ public class Main {
         String email = input("Enter your email");
         String password = input("Enter your password");
 
-        User user = userRepository.findByEmail(email);
+//        User user = userServices.findByEmail(email);
+        User user = null;
         if (user != null) {
 
             while (!password.equals(user.getPassword())){

@@ -10,6 +10,7 @@ public class User {
     private String email;
     private String password;
     private List<String> movieId;
+//    private List<Movie> movieId;
     private Role role;
 //    private boolean
 }

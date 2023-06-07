@@ -21,11 +21,13 @@ public interface UserServices {
 
     Movie findMovieByName(String movieName);
 
+//    MovieAddedToUserListResponse saveMovieToUserList(Movie movieName, User foundUser);
     MovieAddedToUserListResponse saveMovieToUserList(String movieName, User foundUser);
 
     MovieSharedResponse shareMovie(String movieId, String senderId, String receiverId);
 
-    void deleteMovieFromUserListById(String movieId);
+//    void deleteMovieFromUserListById(Movie movieId, User currentUser);
+    void deleteMovieFromUserListById(String movieId, User currentUser);
 
 //    void deleteMovieFromUserListByName(String movieName);
 

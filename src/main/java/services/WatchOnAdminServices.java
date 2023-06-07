@@ -17,8 +17,7 @@ import java.util.List;
 
 public class WatchOnAdminServices implements AdminServices{
     MovieRepository movieRepository = new WatchOnMovieRepository();
-    UserRepository userRepository = new WatchOnUserRepository();
-    UserServices userServices = new WatchOnUserServices(userRepository);
+    UserServices userServices = WatchOnUserServices.getInstance();
 
 //    public MovieAddedToDatabaseResponse addMovieToDatabase(NewMovieDetailsRequest newMovieDetailsRequest,
 //                                                           UserIdToCheckRequest userIdToCheckRequest) {
@@ -58,7 +57,14 @@ public class WatchOnAdminServices implements AdminServices{
 
     public MovieAddedToDatabaseResponse addMovieToDatabase(NewMovieDetailsRequest newMovieDetailsRequest) {
         MovieAddedToDatabaseResponse movieAddedToDatabaseResponse;
-        Role personRole = newMovieDetailsRequest.getRole();
+//        Role personRole = newMovieDetailsRequest.getRole();
+
+
+        String id = newMovieDetailsRequest.getUserId();
+
+        User adminUser = userServices.findUserById(id);
+
+        Role personRole = adminUser.getRole();
 
         if (personRole == Role.ADMIN) {
             String movieName = newMovieDetailsRequest.getMovieName();

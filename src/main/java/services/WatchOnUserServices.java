@@ -14,8 +14,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class WatchOnUserServices implements UserServices{
+    private static UserServices instance = null;
+    private static final UserRepository userRepository = new WatchOnUserRepository();
 
-    UserRepository userRepository;
     MovieRepository movieRepository = new WatchOnMovieRepository();
     private static final String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!.@#&()–{}:;',?/*~$^+=<>])" +
             ".{5,20}$";
@@ -28,9 +29,16 @@ public class WatchOnUserServices implements UserServices{
     static Pattern emailPattern = Pattern.compile(emailRegex);
     static Pattern companyPasswordPattern = Pattern.compile(companyPasswordRegex);
 
-    public WatchOnUserServices(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    private WatchOnUserServices() {
     }
+
+    public static UserServices getInstance(){
+        if (instance == null)
+            return new WatchOnUserServices();
+        return instance;
+    }
+
+
 
     @Override
     public SignUpResponse signUp(SignUpRequest signUpRequest) {
@@ -120,7 +128,7 @@ public class WatchOnUserServices implements UserServices{
         List <String> movieList = currentUser.getMovieId();
 
         for (String movie: movieList) {
-            if (movie.getMovieId == movieId ) movieList.remove(movieId);
+//            if (movie.getMovieId() == movieId) movieList.remove(movieId);
         }
     }
 
@@ -129,11 +137,18 @@ public class WatchOnUserServices implements UserServices{
         return userRepository.findByRole(role);
     }
 
+//    @Override
+//    public User findUserById(String userId) {
+//        return userRepository.findById(userId);
+//    }
+
     @Override
     public User findUserById(String userId) {
-        return userRepository.findById(userId);
+        User foundUser = userRepository.findById(userId);
+        System.out.println();
+        System.out.println(foundUser + "this is me");
+        return foundUser;
     }
-
 
 
 
@@ -178,13 +193,17 @@ public class WatchOnUserServices implements UserServices{
     }
 
     private void checkThatUserIsNotSignedUp(String name, String email) {
-        if (userRepository.findByName(name) != null){
-            if (userRepository.findByEmail(email) != null) {
+        if (userRepository.findByName(name) != null && userRepository.findByEmail(email) != null){
                 throw new DuplicateRequestException("User already registered. Login instead");
-            }
         }
     }
-
+//    private void checkThatUserIsNotSignedUp(String name, String email) {
+//        if (userRepository.findByName(name) != null){
+//            if (userRepository.findByEmail(email) != null) {
+//                throw new DuplicateRequestException("User already registered. Login instead");
+//            }
+//        }
+//    }
     private static User setDetailsOfNewUser(String name, String email, String password) {
         User user = new User();
         user.setFullName(name);
@@ -219,6 +238,7 @@ public class WatchOnUserServices implements UserServices{
         loginResponse.setFullName(user.getFullName());
         loginResponse.setMovieId(List.of("...movies"));
         loginResponse.setRole(user.getRole());
+        loginResponse.setId(user.getUserId());
         return loginResponse;
     }
 }

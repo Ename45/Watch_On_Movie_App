@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 public class NewMovieDetailsRequest {
     private String movieName;
     private String genre;
-//    private String userId;
-    private Role role;
+    private String userId;
+//    private Role role;
     private LocalDateTime year;
     private String producer;
 }

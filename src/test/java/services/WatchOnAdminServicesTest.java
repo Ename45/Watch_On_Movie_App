@@ -12,6 +12,7 @@ import dto.requests.LoginRequest;
 import dto.requests.NewMovieDetailsRequest;
 import dto.requests.SignUpRequest;
 //import dto.requests.UserIdToCheckRequest;
+import dto.responses.LoginResponse;
 import dto.responses.MovieAddedToDatabaseResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WatchOnAdminServicesTest {
 //    Admin admin;
+    User user;
     AdminServices adminServices;
     UserServices userServices;
     SignUpRequest signUpRequest = new SignUpRequest();
@@ -34,9 +36,10 @@ class WatchOnAdminServicesTest {
     @BeforeEach
     void setUp() {
 //        admin = new Admin();
+        user = new User();
         adminServices = new WatchOnAdminServices();
-        UserRepository userRepository = new WatchOnUserRepository();
-        userServices = new WatchOnUserServices(userRepository);
+//        UserRepository userRepository = new WatchOnUserRepository();
+        userServices = WatchOnUserServices.getInstance();
         movie = new Movie();
         movieRepository = new WatchOnMovieRepository();
         newMovieDetailsRequest = new NewMovieDetailsRequest();
@@ -44,9 +47,20 @@ class WatchOnAdminServicesTest {
         @Test
         @DisplayName("Only an Admin can save a Movie to the Database Test")
         public void anAdminCanAddAMovieTest() {
+            signUpRequest.setFullName("Inemesit Udousoro");
+            signUpRequest.setEmail("ename@gmail.com");
+            signUpRequest.setPassword("wOc1472xxX");
+
+            userServices.signUp(signUpRequest);
+
+            loginRequest.setEmail("ename@gmail.com");
+            loginRequest.setPassword("wOc1472xxX");
+            LoginResponse loginResponse = userServices.login(loginRequest);
+
             NewMovieDetailsRequest newMovieDetailsRequest = new NewMovieDetailsRequest();
 
-            newMovieDetailsRequest.setRole(Role.ADMIN);
+//            newMovieDetailsRequest.setRole(Role.ADMIN);
+            newMovieDetailsRequest.setUserId(loginResponse.getId());
 
             MovieAddedToDatabaseResponse response = adminServices.addMovieToDatabase(newMovieDetailsRequest);
 
@@ -56,9 +70,18 @@ class WatchOnAdminServicesTest {
     @Test
     @DisplayName("A User role cannot save Movie to the Database Test")
     public void anUserCannotAddAMovieTest() {
+        signUpRequest.setFullName("Inemesit Udousoro");
+        signUpRequest.setEmail("ename@gmail.com");
+        signUpRequest.setPassword("In3m.");
+
+        userServices.signUp(signUpRequest);
+
+        loginRequest.setEmail("ename@gmail.com");
+        loginRequest.setPassword("In3m.");
+        LoginResponse loginResponse = userServices.login(loginRequest);
             NewMovieDetailsRequest newMovieDetailsRequest = new NewMovieDetailsRequest();
 
-            newMovieDetailsRequest.setRole(Role.USER);
+            newMovieDetailsRequest.setUserId(loginResponse.getId());
 
             MovieAddedToDatabaseResponse response = adminServices.addMovieToDatabase(newMovieDetailsRequest);
 

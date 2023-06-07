@@ -31,7 +31,6 @@ public class WatchOnUserRepository implements UserRepository{
     private void saveNewUser(User user) {
         String id = generateId();
         user.setUserId(id);
-//        user.setRole(Role.USER);
         userList.add(user);
     }
 
@@ -42,7 +41,9 @@ public class WatchOnUserRepository implements UserRepository{
 
     @Override
     public User findById(String id) {
+
         for (User user: userList) {
+
             if (user.getUserId().equals(id)){
                 return user;
             }

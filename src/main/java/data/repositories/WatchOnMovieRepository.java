@@ -48,24 +48,16 @@ public class WatchOnMovieRepository implements MovieRepository{
         }
         return foundMovieId;
     }
-
     @Override
     public Movie findByName(String movieName) {
-        for(Movie foundMovie : movieList){
-            if (Objects.equals(foundMovie.getMovieName(),movieName)) return foundMovie;
+        Movie foundMovie = null;
+        for (Movie movie: movieList) {
+            if (movie.getMovieName().equals(movieName)){
+                foundMovie = movie;
+            }
         }
-        return null;
+        return foundMovie;
     }
-//    @Override
-//    public Movie findByName(String movieName) {
-//        Movie foundMovie = null;
-//        for (Movie movie: movieList) {
-//            if (movie.getMovieName().equals(movieName)){
-//                foundMovie = movie;
-//            }
-//        }
-//        return foundMovie;
-//    }
 
     @Override
     public int countMovie() {

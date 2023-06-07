@@ -12,4 +12,5 @@ public class LoginResponse {
     private String email;
     private List<String> movieId;
     private Role role;
+    private String id;
 }
