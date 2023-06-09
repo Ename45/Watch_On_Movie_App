@@ -14,6 +14,7 @@ import dto.requests.SignUpRequest;
 //import dto.requests.UserIdToCheckRequest;
 import dto.responses.LoginResponse;
 import dto.responses.MovieAddedToDatabaseResponse;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,18 +33,25 @@ class WatchOnAdminServicesTest {
     MovieRepository movieRepository;
     Movie movie;
     NewMovieDetailsRequest newMovieDetailsRequest;
+    UserRepository userRepository;
 
     @BeforeEach
     void setUp() {
-//        admin = new Admin();
         user = new User();
         adminServices = new WatchOnAdminServices();
-//        UserRepository userRepository = new WatchOnUserRepository();
-        userServices = WatchOnUserServices.getInstance();
+        userRepository = new WatchOnUserRepository();
+        userServices = new WatchOnUserServices();
         movie = new Movie();
         movieRepository = new WatchOnMovieRepository();
         newMovieDetailsRequest = new NewMovieDetailsRequest();
     }
+
+    @AfterEach
+    void tearDown(){
+        movieRepository.deleteAll();
+        userRepository.deleteAll();
+    }
+
         @Test
         @DisplayName("Only an Admin can save a Movie to the Database Test")
         public void anAdminCanAddAMovieTest() {
@@ -59,7 +67,6 @@ class WatchOnAdminServicesTest {
 
             NewMovieDetailsRequest newMovieDetailsRequest = new NewMovieDetailsRequest();
 
-//            newMovieDetailsRequest.setRole(Role.ADMIN);
             newMovieDetailsRequest.setUserId(loginResponse.getId());
 
             MovieAddedToDatabaseResponse response = adminServices.addMovieToDatabase(newMovieDetailsRequest);
@@ -79,13 +86,14 @@ class WatchOnAdminServicesTest {
         loginRequest.setEmail("ename@gmail.com");
         loginRequest.setPassword("In3m.");
         LoginResponse loginResponse = userServices.login(loginRequest);
-            NewMovieDetailsRequest newMovieDetailsRequest = new NewMovieDetailsRequest();
 
-            newMovieDetailsRequest.setUserId(loginResponse.getId());
+        NewMovieDetailsRequest newMovieDetailsRequest = new NewMovieDetailsRequest();
 
-            MovieAddedToDatabaseResponse response = adminServices.addMovieToDatabase(newMovieDetailsRequest);
+        newMovieDetailsRequest.setUserId(loginResponse.getId());
 
-            assertEquals("User does not have admin privileges to add movies to the database", response.getMessage());
+        MovieAddedToDatabaseResponse response = adminServices.addMovieToDatabase(newMovieDetailsRequest);
+
+        assertEquals("User does not have admin privileges to add movies to the database", response.getMessage());
         }
 
 //    @Test

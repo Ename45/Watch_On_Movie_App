@@ -15,4 +15,5 @@ public interface MovieRepository  {
     List<Movie> findAll();
     void deleteById(String id);
     void deleteByName(String movieName);
+    void deleteAll();
 }

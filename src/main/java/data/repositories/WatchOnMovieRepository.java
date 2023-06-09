@@ -5,11 +5,10 @@ import data.models.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class WatchOnMovieRepository implements MovieRepository{
-    List<Movie> movieList = new ArrayList<>();
-    private int idCount;
+    private static final List<Movie> movieList = new ArrayList<>();
+    private static int idCount;
 
     @Override
     public Movie save(Movie movie) {
@@ -73,14 +72,19 @@ public class WatchOnMovieRepository implements MovieRepository{
     public void deleteById(String id) {
         Movie foundMovieId = findById(id);
         movieList.remove(foundMovieId);
-        idCount--;
+//        idCount--;
     }
 
     @Override
     public void deleteByName(String movieName) {
         Movie foundMovie = findByName(movieName);
         movieList.remove(foundMovie);
-        idCount--;
+//        idCount--;
+    }
+
+    @Override
+    public void deleteAll() {
+        movieList.clear();
     }
 
 

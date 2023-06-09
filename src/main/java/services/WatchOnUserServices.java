@@ -9,15 +9,16 @@ import dto.requests.LoginRequest;
 import dto.requests.SignUpRequest;
 import dto.responses.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class WatchOnUserServices implements UserServices{
-    private static UserServices instance = null;
+    //private static UserServices instance = null;
     private static final UserRepository userRepository = new WatchOnUserRepository();
 
-    MovieRepository movieRepository = new WatchOnMovieRepository();
+    private static final MovieRepository movieRepository = new WatchOnMovieRepository();
     private static final String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!.@#&()–{}:;',?/*~$^+=<>])" +
             ".{5,20}$";
     private static final String emailRegex = "^(?=.{1,64}@)[\\p{L}0-9+_-]+(\\.[\\p{L}0-9+_-]+)*@"
@@ -29,14 +30,14 @@ public class WatchOnUserServices implements UserServices{
     static Pattern emailPattern = Pattern.compile(emailRegex);
     static Pattern companyPasswordPattern = Pattern.compile(companyPasswordRegex);
 
-    private WatchOnUserServices() {
-    }
+//    private WatchOnUserServices() {
+//    }
 
-    public static UserServices getInstance(){
-        if (instance == null)
-            return new WatchOnUserServices();
-        return instance;
-    }
+//    public static UserServices getInstance(){
+//        if (instance == null)
+//            return new WatchOnUserServices();
+//        return instance;
+//    }
 
 
 
@@ -92,14 +93,13 @@ public class WatchOnUserServices implements UserServices{
     @Override
     public MovieAddedToUserListResponse saveMovieToUserList(String movieName, User foundUser) {
         Movie movie = findMovieByName(movieName);
+        String movieId = movie.getMovieId();
 
-        if (movie == null) {
+        if (movieId == null) {
             throw new IllegalArgumentException("Movie not found.");
         }
 
-        foundUser = userRepository.findByEmail(foundUser.getEmail());
-        foundUser.getMovieId().add(movie.getMovieId());
-
+        foundUser.addMovieToList(movieId);
         userRepository.save(foundUser);
 
         MovieAddedToUserListResponse movieAddedToUserListResponse = new MovieAddedToUserListResponse();
@@ -137,18 +137,16 @@ public class WatchOnUserServices implements UserServices{
         return userRepository.findByRole(role);
     }
 
-//    @Override
-//    public User findUserById(String userId) {
-//        return userRepository.findById(userId);
-//    }
-
     @Override
     public User findUserById(String userId) {
-        User foundUser = userRepository.findById(userId);
-        System.out.println();
-        System.out.println(foundUser + "this is me");
-        return foundUser;
+        return userRepository.findById(userId);
     }
+
+//    @Override
+//    public User findUserById(String userId) {
+//        User foundUser = userRepository.findById(userId);
+//        return foundUser;
+//    }
 
 
 

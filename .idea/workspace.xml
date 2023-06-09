@@ -8,11 +8,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/data/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/MovieRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/MovieRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnMovieRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnMovieRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnUserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dto/requests/NewMovieDetailsRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dto/requests/NewMovieDetailsRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dto/responses/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dto/responses/LoginResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/UserServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/UserServices.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/WatchOnAdminServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/WatchOnAdminServices.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/WatchOnUserServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/WatchOnUserServices.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/services/WatchOnAdminServicesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/WatchOnAdminServicesTest.java" afterDir="false" />
@@ -52,22 +51,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "last_opened_file_path": "C:/Users/USER/IdeaProjects/WatchOn",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propGUI",
-    "spring.configuration.checksum": "f39d7c936ad6a450bf15c6175bf5203d"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/IdeaProjects/WatchOn&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propGUI&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;f39d7c936ad6a450bf15c6175bf5203d&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="dto.requests" />
@@ -81,8 +80,8 @@
       <recent name="data.repositories" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.WatchOnUserServicesTest.testSignUpAssignsRoleBasedOnPasswordPattern">
-    <configuration name="WatchOnAdminServicesTest.anUserCannotAddAMovieTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.WatchOnUserServicesTest.saveMovieToUserList_Successful">
+    <configuration name="WatchOnAdminServicesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="WatchOn" />
       <extension name="coverage">
         <pattern>
@@ -92,8 +91,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="services" />
       <option name="MAIN_CLASS_NAME" value="services.WatchOnAdminServicesTest" />
-      <option name="METHOD_NAME" value="anUserCannotAddAMovieTest" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -113,7 +111,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WatchOnUserServicesTest.aUserCanSignUpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WatchOnUserServicesTest.saveMovieToUserList_Successful" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="WatchOn" />
       <extension name="coverage">
         <pattern>
@@ -123,13 +121,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="services" />
       <option name="MAIN_CLASS_NAME" value="services.WatchOnUserServicesTest" />
-      <option name="METHOD_NAME" value="aUserCanSignUpTest" />
+      <option name="METHOD_NAME" value="saveMovieToUserList_Successful" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WatchOnUserServicesTest.testSignUpAssignsRoleBasedOnPasswordPattern" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WatchOnUserServicesTest.twoUserCanSignUpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="WatchOn" />
       <extension name="coverage">
         <pattern>
@@ -139,13 +137,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="services" />
       <option name="MAIN_CLASS_NAME" value="services.WatchOnUserServicesTest" />
-      <option name="METHOD_NAME" value="testSignUpAssignsRoleBasedOnPasswordPattern" />
+      <option name="METHOD_NAME" value="twoUserCanSignUpTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WatchOnUserServicesTest.userNotNull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WatchOnUserServicesTest.userCantSignUpMoreThanOnceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="WatchOn" />
       <extension name="coverage">
         <pattern>
@@ -155,7 +153,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="services" />
       <option name="MAIN_CLASS_NAME" value="services.WatchOnUserServicesTest" />
-      <option name="METHOD_NAME" value="userNotNull" />
+      <option name="METHOD_NAME" value="userCantSignUpMoreThanOnceTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -163,11 +161,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.WatchOnUserServicesTest.testSignUpAssignsRoleBasedOnPasswordPattern" />
-        <item itemvalue="JUnit.WatchOnUserServicesTest.aUserCanSignUpTest" />
-        <item itemvalue="JUnit.WatchOnUserServicesTest.userNotNull" />
+        <item itemvalue="JUnit.WatchOnUserServicesTest.saveMovieToUserList_Successful" />
+        <item itemvalue="JUnit.WatchOnAdminServicesTest" />
         <item itemvalue="JUnit.WatchOnUserServicesTest" />
-        <item itemvalue="JUnit.WatchOnAdminServicesTest.anUserCannotAddAMovieTest" />
+        <item itemvalue="JUnit.WatchOnUserServicesTest.twoUserCanSignUpTest" />
+        <item itemvalue="JUnit.WatchOnUserServicesTest.userCantSignUpMoreThanOnceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -186,7 +184,8 @@
       <workItem from="1684820680552" duration="48000" />
       <workItem from="1684820791499" duration="926000" />
       <workItem from="1684822648515" duration="19242000" />
-      <workItem from="1685416478640" duration="100332000" />
+      <workItem from="1685416478640" duration="118257000" />
+      <workItem from="1686279252487" duration="7914000" />
     </task>
     <servers />
   </component>
@@ -203,17 +202,6 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/services/WatchOnUserServicesTest.java</url>
-          <line>99</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -16,50 +16,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class WatchOnAdminServices implements AdminServices{
-    MovieRepository movieRepository = new WatchOnMovieRepository();
-    UserServices userServices = WatchOnUserServices.getInstance();
+    private final MovieRepository movieRepository = new WatchOnMovieRepository();
+    private final UserServices userServices = new WatchOnUserServices();
 
-//    public MovieAddedToDatabaseResponse addMovieToDatabase(NewMovieDetailsRequest newMovieDetailsRequest,
-//                                                           UserIdToCheckRequest userIdToCheckRequest) {
-////        user = userRepository.findById(newMovieDetailsRequest.getUserId());
-////        user = userServices.findUserById(newMovieDetailsRequest.getUserId());
-//        MovieAddedToDatabaseResponse movieAddedToDatabaseResponse = null;
-//
-//            String movieName = newMovieDetailsRequest.getMovieName();
-//            String genre = newMovieDetailsRequest.getGenre();
-//            String yearReleased = String.valueOf(newMovieDetailsRequest.getYear());
-//            String producer = newMovieDetailsRequest.getProducer();
-//
-//            Movie newMovie = new Movie();
-//            newMovie.setMovieName(movieName);
-//            newMovie.setGenre(genre);
-//            newMovie.setYear(LocalDateTime.parse(yearReleased));
-//            newMovie.setProducer(producer);
-//
-//            String adminId = userIdToCheckRequest.getUserId();
-//            User user = userServices.findUserById(adminId);
-////        System.out.println(user.getRole());
-////        System.out.println(user);
-//
-//        if (user != null && user.getRole() == Role.ADMIN) {
-//            movieRepository.save(newMovie);
-//
-//            movieAddedToDatabaseResponse = new MovieAddedToDatabaseResponse();
-//            movieAddedToDatabaseResponse.setMessage("Added to platform");
-//        }
-////        else {
-////            movieAddedToDatabaseResponse = new MovieAddedToDatabaseResponse();
-////            movieAddedToDatabaseResponse.setMessage("User is not an admin");
-////        }
-//
-//        return movieAddedToDatabaseResponse;
-//    }
 
     public MovieAddedToDatabaseResponse addMovieToDatabase(NewMovieDetailsRequest newMovieDetailsRequest) {
         MovieAddedToDatabaseResponse movieAddedToDatabaseResponse;
 //        Role personRole = newMovieDetailsRequest.getRole();
-
-
         String id = newMovieDetailsRequest.getUserId();
 
         User adminUser = userServices.findUserById(id);

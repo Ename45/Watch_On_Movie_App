@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WatchOnUserRepository implements UserRepository{
-    List<User> userList = new ArrayList<>();
-    private int idCount;
+    private static final List<User> userList = new ArrayList<>();
+    private static int idCount;
 
     @Override
     public User save(User user) {
@@ -108,6 +108,11 @@ public class WatchOnUserRepository implements UserRepository{
     public void deleteById(String id) {
         User foundUserId = findById(id);
         userList.remove(foundUserId);
-        idCount--;
+//        idCount--;
+    }
+
+    @Override
+    public void deleteAll() {
+        userList.clear();
     }
 }
