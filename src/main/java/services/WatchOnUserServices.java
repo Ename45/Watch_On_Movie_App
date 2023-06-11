@@ -16,7 +16,6 @@ import java.util.regex.Pattern;
 public class WatchOnUserServices implements UserServices{
     private static final UserRepository userRepository = new WatchOnUserRepository();
     MovieServices movieServices = new WatchOnMovieServices();
-//    AdminServices adminServices = new WatchOnAdminServices();
     private static final String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!.@#&()–{}:;',?/*~$^+=<>])" +
             ".{5,20}$";
     private static final String emailRegex = "^(?=.{1,64}@)[\\p{L}0-9+_-]+(\\.[\\p{L}0-9+_-]+)*@"
@@ -107,7 +106,7 @@ public class WatchOnUserServices implements UserServices{
     }
 
 //    @Override
-//    public MovieSharedResponse shareAMovie(ShareMovieRequest shareMovieRequest) {
+//    public MovieSharedResponse share(ShareMovieRequest shareMovieRequest) {
 //        return adminServices.shareAMovie(shareMovieRequest);
 //    }
 

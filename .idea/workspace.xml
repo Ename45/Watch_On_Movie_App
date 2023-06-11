@@ -5,26 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89e08033-c36e-40bb-8bba-f6a0c0b6db0d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/data/models/SharedItems.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dto/requests/ShareMovieRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dto/responses/DeleteFromUserListResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/models/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnMovieRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnMovieRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnUserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/AdminServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/AdminServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/MovieServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/MovieServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/UserServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/UserServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/WatchOnAdminServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/WatchOnAdminServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/WatchOnMovieServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/WatchOnMovieServices.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/WatchOnUserServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/WatchOnUserServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/data/repositories/WatchOnMovieRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/data/repositories/WatchOnMovieRepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/data/repositories/WatchOnUserRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/data/repositories/WatchOnUserRepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/services/WatchOnAdminServicesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/WatchOnAdminServicesTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/services/WatchOnUserServicesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/WatchOnUserServicesTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +71,7 @@
       <recent name="data.repositories" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.WatchOnUserRepositoryTest">
+  <component name="RunManager" selected="JUnit.WatchOnUserServicesTest">
     <configuration name="WatchOnAdminServicesTest.shareMovieTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="WatchOn" />
       <extension name="coverage">
@@ -169,10 +151,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.WatchOnUserServicesTest" />
         <item itemvalue="JUnit.WatchOnUserRepositoryTest" />
         <item itemvalue="JUnit.WatchOnMovieRepositoryTest" />
         <item itemvalue="JUnit.WatchOnMovieRepositoryTest.saveOneMovie_IdCountIsNotNull" />
-        <item itemvalue="JUnit.WatchOnUserServicesTest" />
         <item itemvalue="JUnit.WatchOnAdminServicesTest.shareMovieTest" />
       </list>
     </recent_temporary>
@@ -193,7 +175,7 @@
       <workItem from="1684820791499" duration="926000" />
       <workItem from="1684822648515" duration="19242000" />
       <workItem from="1685416478640" duration="118257000" />
-      <workItem from="1686279252487" duration="47311000" />
+      <workItem from="1686279252487" duration="48804000" />
     </task>
     <servers />
   </component>
