@@ -5,15 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89e08033-c36e-40bb-8bba-f6a0c0b6db0d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/AdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/MovieServices.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/WatchOnMovieServices.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/models/Admin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/models/MovieList.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/AdminRepository.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/MovieRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/MovieRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnAdminRepository.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnMovieRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnMovieRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/repositories/WatchOnUserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/AdminServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/AdminServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/UserServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/UserServices.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/WatchOnAdminServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/WatchOnAdminServices.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/WatchOnUserServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/WatchOnUserServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/data/repositories/WatchOnAdminRepositoryTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/services/WatchOnAdminServicesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/WatchOnAdminServicesTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/services/WatchOnUserServicesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/WatchOnUserServicesTest.java" afterDir="false" />
     </list>
@@ -25,9 +32,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="JUnit5 Test Class" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -80,7 +87,14 @@
       <recent name="data.repositories" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.WatchOnUserServicesTest.saveMovieToUserList_Successful">
+  <component name="RunManager" selected="JUnit.WatchOnUserServicesTest">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="WatchOn" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="WatchOnAdminServicesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="WatchOn" />
       <extension name="coverage">
@@ -92,6 +106,22 @@
       <option name="PACKAGE_NAME" value="services" />
       <option name="MAIN_CLASS_NAME" value="services.WatchOnAdminServicesTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WatchOnAdminServicesTest.adminCanDeleteMovieFromDatabaseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="WatchOn" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="services" />
+      <option name="MAIN_CLASS_NAME" value="services.WatchOnAdminServicesTest" />
+      <option name="METHOD_NAME" value="adminCanDeleteMovieFromDatabaseTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -111,7 +141,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WatchOnUserServicesTest.saveMovieToUserList_Successful" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WatchOnUserServicesTest.userEmailIsValidTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="WatchOn" />
       <extension name="coverage">
         <pattern>
@@ -121,39 +151,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="services" />
       <option name="MAIN_CLASS_NAME" value="services.WatchOnUserServicesTest" />
-      <option name="METHOD_NAME" value="saveMovieToUserList_Successful" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WatchOnUserServicesTest.twoUserCanSignUpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="WatchOn" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="services" />
-      <option name="MAIN_CLASS_NAME" value="services.WatchOnUserServicesTest" />
-      <option name="METHOD_NAME" value="twoUserCanSignUpTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WatchOnUserServicesTest.userCantSignUpMoreThanOnceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="WatchOn" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="services" />
-      <option name="MAIN_CLASS_NAME" value="services.WatchOnUserServicesTest" />
-      <option name="METHOD_NAME" value="userCantSignUpMoreThanOnceTest" />
+      <option name="METHOD_NAME" value="userEmailIsValidTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -161,11 +159,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.WatchOnUserServicesTest.saveMovieToUserList_Successful" />
-        <item itemvalue="JUnit.WatchOnAdminServicesTest" />
         <item itemvalue="JUnit.WatchOnUserServicesTest" />
-        <item itemvalue="JUnit.WatchOnUserServicesTest.twoUserCanSignUpTest" />
-        <item itemvalue="JUnit.WatchOnUserServicesTest.userCantSignUpMoreThanOnceTest" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.WatchOnAdminServicesTest" />
+        <item itemvalue="JUnit.WatchOnUserServicesTest.userEmailIsValidTest" />
+        <item itemvalue="JUnit.WatchOnAdminServicesTest.adminCanDeleteMovieFromDatabaseTest" />
       </list>
     </recent_temporary>
   </component>
@@ -185,7 +183,7 @@
       <workItem from="1684820791499" duration="926000" />
       <workItem from="1684822648515" duration="19242000" />
       <workItem from="1685416478640" duration="118257000" />
-      <workItem from="1686279252487" duration="7914000" />
+      <workItem from="1686279252487" duration="23683000" />
     </task>
     <servers />
   </component>

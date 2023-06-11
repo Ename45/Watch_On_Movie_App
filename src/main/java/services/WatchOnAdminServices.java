@@ -4,25 +4,20 @@ import data.models.Movie;
 import data.models.Role;
 import data.models.User;
 import data.repositories.MovieRepository;
-import data.repositories.UserRepository;
 import data.repositories.WatchOnMovieRepository;
-import data.repositories.WatchOnUserRepository;
 import dto.requests.NewMovieDetailsRequest;
-//import dto.requests.UserIdToCheckRequest;
 import dto.responses.DeleteMovieResponse;
 import dto.responses.MovieAddedToDatabaseResponse;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class WatchOnAdminServices implements AdminServices{
-    private final MovieRepository movieRepository = new WatchOnMovieRepository();
     private final UserServices userServices = new WatchOnUserServices();
+    private final MovieServices movieServices = new WatchOnMovieServices();
 
 
     public MovieAddedToDatabaseResponse addMovieToDatabase(NewMovieDetailsRequest newMovieDetailsRequest) {
         MovieAddedToDatabaseResponse movieAddedToDatabaseResponse;
-//        Role personRole = newMovieDetailsRequest.getRole();
         String id = newMovieDetailsRequest.getUserId();
 
         User adminUser = userServices.findUserById(id);
@@ -41,7 +36,7 @@ public class WatchOnAdminServices implements AdminServices{
             newMovie.setYear(yearReleased);
             newMovie.setProducer(producer);
 
-            Movie savedMovie = movieRepository.save(newMovie);
+            Movie savedMovie = movieServices.saveAMovie(newMovie);
 
             movieAddedToDatabaseResponse = new MovieAddedToDatabaseResponse();
             movieAddedToDatabaseResponse.setMessage("Movie added to the database successfully");
@@ -57,17 +52,17 @@ public class WatchOnAdminServices implements AdminServices{
 
     @Override
     public List<Movie> findAllMovies() {
-        return movieRepository.findAll();
+        return movieServices.findAllMovies();
     }
 
     @Override
     public Movie findMovieByName(String movieName) {
-        return movieRepository.findByName(movieName);
+        return movieServices.findMovieByName(movieName);
     }
 
     @Override
     public DeleteMovieResponse deleteMovieFromDatabaseById(String movieId) {
-        movieRepository.deleteByName(movieId);
+        movieServices.deleteMovieById(movieId);
         DeleteMovieResponse deleteMovieResponse = new DeleteMovieResponse();
         deleteMovieResponse.setMessage("Movie deleted");
         return deleteMovieResponse;

@@ -1,10 +1,8 @@
 package services;
 
 import data.models.Movie;
-import data.models.Role;
 import data.models.User;
 import dto.requests.LoginRequest;
-import dto.requests.NewMovieDetailsRequest;
 import dto.requests.SignUpRequest;
 import dto.responses.*;
 
@@ -18,19 +16,16 @@ public interface UserServices {
     List<Movie> findAllMovies();
 
     User findUserById(String userId);
+    User findUserByUserName(String userName);
 
     Movie findMovieByName(String movieName);
-
-//    MovieAddedToUserListResponse saveMovieToUserList(Movie movieName, User foundUser);
-    MovieAddedToUserListResponse saveMovieToUserList(String movieName, User foundUser);
+    MovieAddedToUserListResponse addMovieToUserList(String movieName, User foundUser);
 
     MovieSharedResponse shareMovie(String movieId, String senderId, String receiverId);
-
-//    void deleteMovieFromUserListById(Movie movieId, User currentUser);
     void deleteMovieFromUserListById(String movieId, User currentUser);
 
-//    void deleteMovieFromUserListByName(String movieName);
+    User findByEmail(String email);
 
-    User findUsersByRole(Role role);
+//    User findUsersByRole(Role role);
 
 }

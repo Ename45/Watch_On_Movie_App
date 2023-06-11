@@ -12,7 +12,7 @@ import java.util.List;
 public interface AdminServices {
 
     MovieAddedToDatabaseResponse addMovieToDatabase(NewMovieDetailsRequest newMovieDetailsRequest);
-    public List<Movie> findAllMovies();
-    public Movie findMovieByName(String movieName);
+    List<Movie> findAllMovies();
+    Movie findMovieByName(String movieName);
     DeleteMovieResponse deleteMovieFromDatabaseById (String movieId);
 }

@@ -1,7 +1,6 @@
 package services;
 
 import com.sun.jdi.request.DuplicateRequestException;
-//import data.models.Role;
 import data.models.Movie;
 import data.models.Role;
 import data.models.User;
@@ -10,18 +9,13 @@ import dto.requests.LoginRequest;
 import dto.requests.NewMovieDetailsRequest;
 import dto.requests.SignUpRequest;
 import dto.responses.LoginResponse;
-import dto.responses.MovieAddedToDatabaseResponse;
 import dto.responses.MovieAddedToUserListResponse;
 import dto.responses.SignUpResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class WatchOnUserServicesTest {
@@ -140,7 +134,6 @@ class WatchOnUserServicesTest {
         assertEquals(2, userRepository.countByRole(Role.USER));
 
         List<User> users = userRepository.findAll();
-        System.out.println(users);
         assertEquals(Role.USER, users.get(0).getRole());
         assertEquals(Role.ADMIN, users.get(1).getRole());
         assertEquals(Role.USER, users.get(2).getRole());
@@ -199,9 +192,9 @@ class WatchOnUserServicesTest {
         signUpRequest.setEmail("ename@gmail.com");
         userServices.signUp(signUpRequest);
 
+        User foundUser = userServices.findUserByUserName(signUpRequest.getFullName());
 
-//        assertNotNull(userRepository.findById(user.getUserId()));
-//        assertNotNull(userRepository.findByEmail("enamesit@gmail.com"));
+        assertNotNull(userServices.findUserById(foundUser.getUserId()));
         assertEquals(1, userRepository.findAll().size());
         assertEquals(1, userRepository.countUser());
     }
@@ -292,9 +285,9 @@ class WatchOnUserServicesTest {
 
         loginRequest.setEmail("ename@gmail.com");
         loginRequest.setPassword("wOc1472xxX");
-        userServices.login(loginRequest);
+        loginResponse = userServices.login(loginRequest);
 
-        newMovieDetailsRequest.setUserId("1");
+        newMovieDetailsRequest.setUserId(loginResponse.getId());
 
         newMovieDetailsRequest.setMovieName("Lord of the rings");
         adminServices.addMovieToDatabase(newMovieDetailsRequest);
@@ -313,7 +306,7 @@ class WatchOnUserServicesTest {
         User currentUser = userServices.findUserById(loginResponse.getId());
 
         String movieName = "Lord of the rings";
-        MovieAddedToUserListResponse response = userServices.saveMovieToUserList(movieName, currentUser);
+        MovieAddedToUserListResponse response = userServices.addMovieToUserList(movieName, currentUser);
 
         assertNotNull(response);
         assertEquals("Movie added to your list.", response.getMessage());
@@ -322,7 +315,7 @@ class WatchOnUserServicesTest {
 //    @Test
 //    void saveMovieToUserList_InvalidMovieId_ThrowsException() {
 //        String movieId = "1";
-//        assertThrows(IllegalArgumentException.class, () -> userServices.saveMovieToUserList(movieId));
+//        assertThrows(IllegalArgumentException.class, () -> userServices.addMovieToUserList(movieId));
 //    }
 
 }

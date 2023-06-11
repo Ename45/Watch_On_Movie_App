@@ -1,8 +1,5 @@
 package data.repositories;
-
-//import data.models.Admin;
 import data.models.Movie;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,14 +69,12 @@ public class WatchOnMovieRepository implements MovieRepository{
     public void deleteById(String id) {
         Movie foundMovieId = findById(id);
         movieList.remove(foundMovieId);
-//        idCount--;
     }
 
     @Override
     public void deleteByName(String movieName) {
         Movie foundMovie = findByName(movieName);
         movieList.remove(foundMovie);
-//        idCount--;
     }
 
     @Override

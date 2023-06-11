@@ -8,17 +8,13 @@ import data.repositories.*;
 import dto.requests.LoginRequest;
 import dto.requests.SignUpRequest;
 import dto.responses.*;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class WatchOnUserServices implements UserServices{
-    //private static UserServices instance = null;
     private static final UserRepository userRepository = new WatchOnUserRepository();
-
-    private static final MovieRepository movieRepository = new WatchOnMovieRepository();
+    MovieServices movieServices = new WatchOnMovieServices();
     private static final String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!.@#&()–{}:;',?/*~$^+=<>])" +
             ".{5,20}$";
     private static final String emailRegex = "^(?=.{1,64}@)[\\p{L}0-9+_-]+(\\.[\\p{L}0-9+_-]+)*@"
@@ -29,17 +25,6 @@ public class WatchOnUserServices implements UserServices{
     static Pattern passwordPattern = Pattern.compile(passwordRegex);
     static Pattern emailPattern = Pattern.compile(emailRegex);
     static Pattern companyPasswordPattern = Pattern.compile(companyPasswordRegex);
-
-//    private WatchOnUserServices() {
-//    }
-
-//    public static UserServices getInstance(){
-//        if (instance == null)
-//            return new WatchOnUserServices();
-//        return instance;
-//    }
-
-
 
     @Override
     public SignUpResponse signUp(SignUpRequest signUpRequest) {
@@ -82,16 +67,16 @@ public class WatchOnUserServices implements UserServices{
 
     @Override
     public List<Movie> findAllMovies() {
-        return movieRepository.findAll();
+        return movieServices.findAllMovies();
     }
 
     @Override
     public Movie findMovieByName(String movieName) {
-        return movieRepository.findByName(movieName);
+        return movieServices.findMovieByName(movieName);
     }
 
     @Override
-    public MovieAddedToUserListResponse saveMovieToUserList(String movieName, User foundUser) {
+    public MovieAddedToUserListResponse addMovieToUserList(String movieName, User foundUser) {
         Movie movie = findMovieByName(movieName);
         String movieId = movie.getMovieId();
 
@@ -133,34 +118,24 @@ public class WatchOnUserServices implements UserServices{
     }
 
     @Override
-    public User findUsersByRole(Role role) {
-        return userRepository.findByRole(role);
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
+
+//    @Override
+//    public User findUsersByRole(Role role) {
+//        return userRepository.findByRole(role);
+//    }
 
     @Override
     public User findUserById(String userId) {
         return userRepository.findById(userId);
     }
 
-//    @Override
-//    public User findUserById(String userId) {
-//        User foundUser = userRepository.findById(userId);
-//        return foundUser;
-//    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    public User findUserByUserName(String userName) {
+        return userRepository.findByName(userName);
+    }
 
 
     private static void emailValidator(String email) {
@@ -169,11 +144,6 @@ public class WatchOnUserServices implements UserServices{
             throw new IllegalArgumentException("Invalid email address");
         }
     }
-
-//    private static void passwordValidator(String password) {
-//        companyPasswordValidator(password);
-//        userPasswordValidator(password);
-//    }
 
     private static void userPasswordValidator(String password) {
         Matcher matcher = passwordPattern.matcher(password);
@@ -195,13 +165,7 @@ public class WatchOnUserServices implements UserServices{
                 throw new DuplicateRequestException("User already registered. Login instead");
         }
     }
-//    private void checkThatUserIsNotSignedUp(String name, String email) {
-//        if (userRepository.findByName(name) != null){
-//            if (userRepository.findByEmail(email) != null) {
-//                throw new DuplicateRequestException("User already registered. Login instead");
-//            }
-//        }
-//    }
+
     private static User setDetailsOfNewUser(String name, String email, String password) {
         User user = new User();
         user.setFullName(name);

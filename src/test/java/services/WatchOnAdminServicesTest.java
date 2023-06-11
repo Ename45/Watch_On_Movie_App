@@ -1,8 +1,6 @@
 package services;
 
-//import data.models.Admin;
 import data.models.Movie;
-import data.models.Role;
 import data.models.User;
 import data.repositories.MovieRepository;
 import data.repositories.UserRepository;
@@ -11,25 +9,22 @@ import data.repositories.WatchOnUserRepository;
 import dto.requests.LoginRequest;
 import dto.requests.NewMovieDetailsRequest;
 import dto.requests.SignUpRequest;
-//import dto.requests.UserIdToCheckRequest;
 import dto.responses.LoginResponse;
 import dto.responses.MovieAddedToDatabaseResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import java.time.LocalDateTime;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class WatchOnAdminServicesTest {
-//    Admin admin;
     User user;
     AdminServices adminServices;
     UserServices userServices;
-    SignUpRequest signUpRequest = new SignUpRequest();
-    LoginRequest loginRequest = new LoginRequest();
+    SignUpRequest signUpRequest;
+    LoginRequest loginRequest;
+    LoginResponse loginResponse;
     MovieRepository movieRepository;
     Movie movie;
     NewMovieDetailsRequest newMovieDetailsRequest;
@@ -39,6 +34,9 @@ class WatchOnAdminServicesTest {
     void setUp() {
         user = new User();
         adminServices = new WatchOnAdminServices();
+        signUpRequest = new SignUpRequest();
+        loginRequest = new LoginRequest();
+        loginResponse = new LoginResponse();
         userRepository = new WatchOnUserRepository();
         userServices = new WatchOnUserServices();
         movie = new Movie();
@@ -96,29 +94,34 @@ class WatchOnAdminServicesTest {
         assertEquals("User does not have admin privileges to add movies to the database", response.getMessage());
         }
 
-//    @Test
-//    @DisplayName("Only an Admin can delete movie from platform")
-//    public void adminCanDeleteMovieFromDatabaseTest(){
-//        signUpRequest.setFullName("Inemesit Udousoro");
-//        signUpRequest.setEmail("ename@gmail.com");
-//        signUpRequest.setPassword("wOc1472xxX");
-//
-//        userServices.signUp(signUpRequest);
-//
-//        loginRequest.setEmail("ename@gmail.com");
-//        loginRequest.setPassword("wOc1472xxX");
-//
-//        userServices.login(loginRequest);
-//
-//        movie.setMovieName("Spy");
-//        movie.setGenre("Action");
-//        movie.setYear(LocalDateTime.parse("2023/05/20"));
-//        movie.setProducer("John");
-//
-//        Movie savedMovie = movieRepository.save(movie);
-//
-//    }
+    @Test
+    @DisplayName("Only an Admin can delete movie from platform")
+    public void adminCanDeleteMovieFromDatabaseTest(){
+        signUpRequest.setFullName("Inemesit Udousoro");
+        signUpRequest.setEmail("ename@gmail.com");
+        signUpRequest.setPassword("wOc1472xxX");
 
+        userServices.signUp(signUpRequest);
 
+        loginRequest.setEmail("ename@gmail.com");
+        loginRequest.setPassword("wOc1472xxX");
 
+        loginResponse = userServices.login(loginRequest);
+
+        newMovieDetailsRequest.setUserId(loginResponse.getId());
+
+        newMovieDetailsRequest.setMovieName("Spy");
+        newMovieDetailsRequest.setGenre("Action");
+        newMovieDetailsRequest.setYear(LocalDateTime.now().withYear(2023));
+        newMovieDetailsRequest.setProducer("John Aisle");
+
+        adminServices.addMovieToDatabase(newMovieDetailsRequest);
+
+        Movie foundMovie = adminServices.findAllMovies().get(0);
+
+        adminServices.deleteMovieFromDatabaseById(foundMovie.getMovieId());
+
+        assertEquals(0, userServices.findAllMovies().size());
+
+    }
 }

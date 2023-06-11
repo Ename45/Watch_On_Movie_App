@@ -1,9 +1,6 @@
 package data.repositories;
 
-//import data.models.Admin;
 import data.models.Movie;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 //@Repository
