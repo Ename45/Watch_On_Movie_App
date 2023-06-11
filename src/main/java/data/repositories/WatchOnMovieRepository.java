@@ -5,7 +5,7 @@ import java.util.List;
 
 public class WatchOnMovieRepository implements MovieRepository{
     private static final List<Movie> movieList = new ArrayList<>();
-    private static int idCount;
+    private int idCount;
 
     @Override
     public Movie save(Movie movie) {

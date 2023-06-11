@@ -9,7 +9,7 @@ import java.util.List;
 
 public class WatchOnUserRepository implements UserRepository{
     private static final List<User> userList = new ArrayList<>();
-    private static int idCount;
+    private int idCount;
 
     @Override
     public User save(User user) {

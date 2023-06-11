@@ -312,10 +312,4 @@ class WatchOnUserServicesTest {
         assertEquals("Movie added to your list.", response.getMessage());
     }
 
-//    @Test
-//    void saveMovieToUserList_InvalidMovieId_ThrowsException() {
-//        String movieId = "1";
-//        assertThrows(IllegalArgumentException.class, () -> userServices.addMovieToUserList(movieId));
-//    }
-
 }

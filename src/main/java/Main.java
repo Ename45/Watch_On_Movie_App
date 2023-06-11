@@ -4,10 +4,13 @@ import data.models.Role;
 import data.models.User;
 import dto.requests.LoginRequest;
 import dto.requests.NewMovieDetailsRequest;
+import dto.requests.ShareMovieRequest;
 import dto.requests.SignUpRequest;
 import dto.responses.LoginResponse;
 import dto.responses.SignUpResponse;
+import services.AdminServices;
 import services.UserServices;
+import services.WatchOnAdminServices;
 import services.WatchOnUserServices;
 
 import javax.swing.*;
@@ -20,17 +23,18 @@ import java.util.regex.Pattern;
 public class Main {
     public static void main(String[] args) {
         displayMenu();
-        watchOnServiceMenu();
-//        System.out.println(Role.valueOf("admin"));
+//        userPlatform();
     }
 
-    private static final String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!.@#&()–{}:;',?/*~$^+=<>])" +
+
+
+    private static final String userPasswordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!.@#&()–{}:;',?/*~$^+=<>])" +
             ".{5,20}$";
     private static final String emailRegex = "^(?=.{1,64}@)[\\p{L}0-9+_-]+(\\.[\\p{L}0-9+_-]+)*@" +
             "[^!.@#&()–{}:;',?/*~$^+=<>][\\p{L}0-9+-]+(\\.[\\p{L}0-9+-]+)*(\\.\\p{L}{2,})$";
 
     private static final String companyPasswordRegex = "^wOc1\\d{2}2xxX$";
-    static Pattern passwordPattern = Pattern.compile(passwordRegex);
+    static Pattern userPasswordPattern = Pattern.compile(userPasswordRegex);
     static Pattern emailPattern = Pattern.compile(emailRegex);
 
     static Pattern companyPasswordPattern = Pattern.compile(companyPasswordRegex);
@@ -39,6 +43,9 @@ public class Main {
     static LoginRequest loginRequest = new LoginRequest();
     static LoginResponse loginResponse = new LoginResponse();
     static UserServices userServices = new WatchOnUserServices();
+
+    static AdminServices adminServices = new WatchOnAdminServices();
+
     private static final UserController userController = new UserController();
     private static final AdminController adminController = new AdminController();
 
@@ -64,7 +71,7 @@ public class Main {
         }
     }
 
-    private static void watchOnServiceMenu() {
+    private static void userPlatform() {
         String userServiceMenu = ("""
                 What would you like to do?
                 Enter 1 -> Find all movies
@@ -78,7 +85,6 @@ public class Main {
         String userChoice = input(userServiceMenu);
         switch (userChoice) {
             case "1" -> userServices.findAllMovies();
-
             case "2" -> userServices.findMovieByName(input("Search for movie by name"));
             case "3" -> userServices.addMovieToUserList(input("Search for movie by name"), userServices.findUserById(loginResponse.getId()));
 //            case "4" -> userServices.deleteMovieFromUserListById();
@@ -87,31 +93,18 @@ public class Main {
             case "7" -> userServices.findUserByUserName(input("Search for friend by email"));
             default -> {
                 errorMessage();
-                watchOnServiceMenu();
+                userPlatform();
             }
         }
     }
 
-    private static void userPlatform() {
-        String option = input("enter 1 to save movie\n enter 2 to find movie");
-        if (option.equals( "1")) {
-
-//            userController.addMovieToUserList("1");
-        }
-        if (option.equals("2")){
-            String nameOfMovie = input("Enter the name of the movie ");
-//            userController.findMovieByName(nameOfMovie);
-        }
-
-    }
-
     private static void adminPlatform() {
-        String option = input("enter 1 dd movie to database\n enter 2 to delete movie from database\n enter 3 ");
+        String option = input("enter 1 add movie to database\n2 delete movie from database\n enter 3 ");
         if (option.equals( "1")) {
             String movieName = input("Enter movie name ");
-            String movieGenre = input("Enter movie details ");
-            String movieYear = input("Enter movie details ");
-            String movieProducer = input("Enter movie details ");
+            String movieGenre = input("Enter movie genre ");
+            String movieYear = input("Enter year released ");
+            String movieProducer = input("Enter producers name ");
             NewMovieDetailsRequest newMovieDetailsRequest = new NewMovieDetailsRequest();
             newMovieDetailsRequest.setMovieName(movieName);
             newMovieDetailsRequest.setGenre(movieGenre);
@@ -119,19 +112,27 @@ public class Main {
             newMovieDetailsRequest.setProducer(movieProducer);
             adminController.addMovieToDatabase(newMovieDetailsRequest);
         }
+        if (option.equals("3")){
+            String movieName = input("Enter the name of the movie ");
+            adminController.findMovieByName(movieName);
+        }
+        if (option.equals("4")){
+            adminController.findAllMovies();
+        }
+        if (option.equals("4")){
+//            String sender = input("Enter  ");
+            String receiver = input("Enter receiver name or email");
+            String movieToShare = input("Choose movie to share");
+            ShareMovieRequest shareMovieRequest = new ShareMovieRequest();
+            User foundUser = userServices.findUserById(shareMovieRequest.getSenderId());
+            shareMovieRequest.setReceiverId(receiver);
+            shareMovieRequest.setMovieId(movieToShare);
+            adminController.shareAMovie(shareMovieRequest);
+        }
         if (option.equals("2")){
             String movieToDelete = input("Enter the name of the movie ");
             adminController.deleteMovieFromDatabaseById(movieToDelete);
         }
-        if (option.equals("3")){
-            String movieToDelete = input("Enter the name of the movie ");
-            adminController.deleteMovieFromDatabaseById(movieToDelete);
-        }
-        if (option.equals("4")){
-            String movieToDelete = input("Enter the name of the movie ");
-            adminController.deleteMovieFromDatabaseById(movieToDelete);
-        }
-
     }
 
     private static void signUp() {
@@ -144,6 +145,7 @@ public class Main {
         signUpRequest.setFullName(fullName);
         user.setFullName(fullName);
 
+
         String email = input("Enter your Email: ");
         Matcher emailMatcher = emailPattern.matcher(email);
         while (!emailMatcher.matches()){
@@ -153,32 +155,25 @@ public class Main {
         signUpRequest.setEmail(email);
         user.setEmail(email);
 
-        String password = input("Enter your password: ");
 
-//        Matcher matcher = companyPasswordPattern.matcher(password);
-//        if (!matcher.matches()){
-//            userPasswordValidator(password);
-//        }
-//
-//        Matcher passwordMatcher = passwordPattern.matcher(password);
-//        if (!passwordMatcher.matches()){
-//            password = input("Password should contain at least one capital letter,\nsmall letter, number and a " +
-//                    "character.\nPassword should be more than 4 characters: ");
-//            passwordMatcher = passwordPattern.matcher(password);
-//        }
-//
-//
-//        Matcher passwordMatcher = passwordPattern.matcher(password);
-//        while (!passwordMatcher.matches()){
-//            password = input("Password should contain at least one capital letter,\nsmall letter, number and a " +
-//                    "character.\nPassword should be more than 4 characters: ");
-//            passwordMatcher = passwordPattern.matcher(password);
-//        }
-        signUpRequest.setPassword(password);
-        user.setPassword(password);
+        String password = input("Enter your password: ");
+        Matcher companyMatcher = companyPasswordPattern.matcher(password);
+        Matcher userPasswordMatcher = userPasswordPattern.matcher(password);
+        while (true){
+            if (userPasswordMatcher.matches() || companyMatcher.matches()){
+                signUpRequest.setPassword(password);
+                user.setPassword(password);
+                break;
+            }
+            else{
+                password = input("Invalid password format. Password should contain at least one capital letter," +
+                        " small letter, number, and a special character. Password should be more than 4 characters.");
+                companyMatcher = companyPasswordPattern.matcher(password);
+                userPasswordMatcher = userPasswordPattern.matcher(password);
+            }
+        }
 
         signUpResponse = userServices.signUp(signUpRequest);
-
 
         display(signUpResponse.getMessage());
         displayMenu();
@@ -202,6 +197,7 @@ public class Main {
             display(loginResponse.getMessage());
 
             if (loginResponse.getRole() == Role.ADMIN){
+              System.out.println(Role.USER);
               String option = input("enter 1 for user\n enter 2 for admin ");
               switch (option){
 
@@ -213,12 +209,10 @@ public class Main {
             }
             else if (loginResponse.getRole() == Role.USER){
                 System.out.println(Role.USER);
+                userPlatform();
             }
-
         }
         else display("User does not exist");
-
-//        displayMenu();
     }
 
     private static void findMovieByName(){

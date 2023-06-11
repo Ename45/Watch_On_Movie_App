@@ -8,9 +8,11 @@ import data.repositories.WatchOnMovieRepository;
 import data.repositories.WatchOnUserRepository;
 import dto.requests.LoginRequest;
 import dto.requests.NewMovieDetailsRequest;
+import dto.requests.ShareMovieRequest;
 import dto.requests.SignUpRequest;
 import dto.responses.LoginResponse;
 import dto.responses.MovieAddedToDatabaseResponse;
+import dto.responses.MovieSharedResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,6 +24,7 @@ class WatchOnAdminServicesTest {
     User user;
     AdminServices adminServices;
     UserServices userServices;
+    MovieServices movieServices;
     SignUpRequest signUpRequest;
     LoginRequest loginRequest;
     LoginResponse loginResponse;
@@ -39,6 +42,7 @@ class WatchOnAdminServicesTest {
         loginResponse = new LoginResponse();
         userRepository = new WatchOnUserRepository();
         userServices = new WatchOnUserServices();
+        movieServices = new WatchOnMovieServices();
         movie = new Movie();
         movieRepository = new WatchOnMovieRepository();
         newMovieDetailsRequest = new NewMovieDetailsRequest();
@@ -122,6 +126,58 @@ class WatchOnAdminServicesTest {
         adminServices.deleteMovieFromDatabaseById(foundMovie.getMovieId());
 
         assertEquals(0, userServices.findAllMovies().size());
+    }
 
+    @Test
+    public void shareMovieTest(){
+        signUpRequest.setFullName("Inemesit Udousoro");
+        signUpRequest.setEmail("ename@gmail.com");
+        signUpRequest.setPassword("wOc1472xxX");
+        userServices.signUp(signUpRequest);
+
+        loginRequest.setEmail("ename@gmail.com");
+        loginRequest.setPassword("wOc1472xxX");
+        loginResponse = userServices.login(loginRequest);
+        newMovieDetailsRequest.setUserId(loginResponse.getId());
+
+        newMovieDetailsRequest.setMovieName("Spy Girls");
+        newMovieDetailsRequest.setGenre("Action");
+        newMovieDetailsRequest.setYear(LocalDateTime.now().withYear(2023));
+        newMovieDetailsRequest.setProducer("John Aisle");
+        adminServices.addMovieToDatabase(newMovieDetailsRequest);
+
+        SignUpRequest signUpRequest2 = new SignUpRequest();
+        signUpRequest2.setFullName("Philo Udousoro");
+        signUpRequest2.setEmail("philo@gmail.com");
+        signUpRequest2.setPassword("In3m.");
+        userServices.signUp(signUpRequest2);
+
+        LoginRequest loginRequest2 = new LoginRequest();
+        loginRequest2.setEmail("philo@gmail.com");
+        loginRequest2.setPassword("Ph1o.");
+        LoginResponse loginResponse2 = new LoginResponse();
+        loginResponse2 = userServices.login(loginRequest2);
+
+        SignUpRequest signUpRequest3 = new SignUpRequest();
+        signUpRequest3.setFullName("John Udousoro");
+        signUpRequest3.setEmail("john@gmail.com");
+        signUpRequest3.setPassword("Jo3n.");
+        userServices.signUp(signUpRequest3);
+
+        LoginRequest loginRequest3 = new LoginRequest();
+        loginRequest3.setEmail("ename@gmail.com");
+        loginRequest3.setPassword("In3m.");
+        LoginResponse loginResponse3 = new LoginResponse();
+        loginResponse3 = userServices.login(loginRequest3);
+
+        ShareMovieRequest shareMovieRequest = new ShareMovieRequest();
+        shareMovieRequest.setSenderId(loginResponse2.getId());
+        User receiver = userServices.findUserById(loginResponse3.getId());
+        shareMovieRequest.setReceiverId(receiver.getUserId());
+        shareMovieRequest.setMovieId(movieServices.findMovieByName("Spy Girls").getMovieId());
+        MovieSharedResponse movieSharedResponse = adminServices.shareAMovie(shareMovieRequest);
+
+        assertEquals("sent movie to" + receiver.getFullName(), movieSharedResponse.getMessage());
+        assertEquals(1, receiver.getSharedMovies().size());
     }
 }

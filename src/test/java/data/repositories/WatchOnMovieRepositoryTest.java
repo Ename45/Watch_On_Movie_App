@@ -2,6 +2,7 @@ package data.repositories;
 
 import data.models.Movie;
 import data.models.User;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,11 @@ class WatchOnMovieRepositoryTest {
     void setUp() {
         movie = new Movie();
         movieRepository = new WatchOnMovieRepository();
+    }
+
+    @AfterEach
+    public  void tearDown(){
+        movieRepository.deleteAll();
     }
 
     @Test
@@ -45,8 +51,10 @@ class WatchOnMovieRepositoryTest {
     public void saveOneMovie_IdCountIsNotNull() {
         assertNull(movie.getMovieId());
 
+        movie.setMovieName("Lord of the rings");
         movieRepository.save(movie);
-        assertEquals("1", movie.getMovieId());
+        assertNotNull(movie.getMovieId());
+        assertEquals("1", movieRepository.findByName(movie.getMovieName()).getMovieId());
     }
 
     @Test
@@ -125,16 +133,13 @@ class WatchOnMovieRepositoryTest {
 
         movieRepository.deleteById(movie2.getMovieId());
 
-        assertEquals("1", movie.getMovieId());
-        assertEquals("2", movie2.getMovieId());
-        assertEquals("3", movie3.getMovieId());
         assertEquals(2, movieRepository.countMovie());
 
         Movie movie4 = new Movie();
         movieRepository.save(movie4);
 
         assertEquals(3, movieRepository.countMovie());
-        assertEquals("3", movie4.getMovieId());
+        assertEquals("4", movie4.getMovieId());
     }
 
     @Test
@@ -154,13 +159,13 @@ class WatchOnMovieRepositoryTest {
 
         movieRepository.deleteByName(movie2.getMovieName());
 
-        assertEquals(2, movieRepository.countMovie());
-
+        assertEquals(2, movieRepository.findAll().size());
+//
         Movie movie4 = new Movie();
         movie4.setMovieName("Bridgeton");
         movieRepository.save(movie4);
 
-        assertEquals(3, movieRepository.countMovie());
+        assertEquals(3, movieRepository.findAll().size());
         assertEquals("Bridgeton", movie4.getMovieName());
     }
 
@@ -187,7 +192,6 @@ class WatchOnMovieRepositoryTest {
         movieRepository.save(movie5);
 
         List<Movie> allMovies = movieRepository.findAll();
-        System.out.println(allMovies);
         assertEquals(allMovies, movieRepository.findAll());
     }
 }

@@ -26,6 +26,11 @@ public class WatchOnMovieServices implements MovieServices{
     }
 
     @Override
+    public Movie findMovieById(String movieId) {
+        return movieRepository.findById(movieId);
+    }
+
+    @Override
     public void deleteMovieById(String movieId) {
         movieRepository.deleteById(movieId);
     }

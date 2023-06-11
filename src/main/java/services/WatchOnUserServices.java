@@ -6,6 +6,7 @@ import data.models.Role;
 import data.models.User;
 import data.repositories.*;
 import dto.requests.LoginRequest;
+import dto.requests.ShareMovieRequest;
 import dto.requests.SignUpRequest;
 import dto.responses.*;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.regex.Pattern;
 public class WatchOnUserServices implements UserServices{
     private static final UserRepository userRepository = new WatchOnUserRepository();
     MovieServices movieServices = new WatchOnMovieServices();
+//    AdminServices adminServices = new WatchOnAdminServices();
     private static final String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!.@#&()–{}:;',?/*~$^+=<>])" +
             ".{5,20}$";
     private static final String emailRegex = "^(?=.{1,64}@)[\\p{L}0-9+_-]+(\\.[\\p{L}0-9+_-]+)*@"
@@ -45,7 +47,6 @@ public class WatchOnUserServices implements UserServices{
         }
 
         userRepository.save(user);
-
         return getSignUpResponse();
     }
 
@@ -58,9 +59,7 @@ public class WatchOnUserServices implements UserServices{
         User user = userRepository.findByEmail(email);
 
         throwExceptionIfNotSignedUp(user);
-
         verifyThatPasswordMatchesExistingUser(password, user);
-
 
         return getLoginResponse(user);
     }
@@ -69,10 +68,24 @@ public class WatchOnUserServices implements UserServices{
     public List<Movie> findAllMovies() {
         return movieServices.findAllMovies();
     }
-
     @Override
     public Movie findMovieByName(String movieName) {
         return movieServices.findMovieByName(movieName);
+    }
+
+    @Override
+    public User findUserById(String userId) {
+        return userRepository.findById(userId);
+    }
+
+    @Override
+    public User findUserByUserName(String userName) {
+        return userRepository.findByName(userName);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override
@@ -93,49 +106,26 @@ public class WatchOnUserServices implements UserServices{
         return movieAddedToUserListResponse;
     }
 
-    @Override
-    public MovieSharedResponse shareMovie(String movieId, String senderId, String receiverId) {
-
-        User sender = findUserById(senderId);
-        User receiver = findUserById(receiverId);
-
-//        sender.sendMovie(movieId);
-//        receiver.receiveMovie(movieId);
-
-        MovieSharedResponse movieSharedResponse = new MovieSharedResponse();
-        movieSharedResponse.setMessage("sent movie to" + receiver.getFullName());
-
-        return movieSharedResponse;
-    }
-
-    @Override
-    public void deleteMovieFromUserListById(String movieId, User currentUser) {
-        List <String> movieList = currentUser.getMovieId();
-
-        for (String movie: movieList) {
-//            if (movie.getMovieId() == movieId) movieList.remove(movieId);
-        }
-    }
-
-    @Override
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
 //    @Override
-//    public User findUsersByRole(Role role) {
-//        return userRepository.findByRole(role);
+//    public MovieSharedResponse shareAMovie(ShareMovieRequest shareMovieRequest) {
+//        return adminServices.shareAMovie(shareMovieRequest);
 //    }
 
     @Override
-    public User findUserById(String userId) {
-        return userRepository.findById(userId);
+    public DeleteFromUserListResponse deleteMovieFromUserListById(String movieId, User currentUser) {
+        currentUser.removeMovieFromList(movieId);
+
+        DeleteFromUserListResponse deleteFromUserListResponse = new DeleteFromUserListResponse();
+        deleteFromUserListResponse.setMessage("Movie removed from your list.");
+        return deleteFromUserListResponse;
     }
 
-    @Override
-    public User findUserByUserName(String userName) {
-        return userRepository.findByName(userName);
-    }
+
+
+
+
+
+
 
 
     private static void emailValidator(String email) {

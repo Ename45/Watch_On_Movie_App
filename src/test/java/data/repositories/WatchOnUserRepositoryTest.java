@@ -2,6 +2,7 @@ package data.repositories;
 
 import data.models.Role;
 import data.models.User;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,11 @@ class WatchOnUserRepositoryTest {
     void setUp() {
         user = new User();
         userRepository = new WatchOnUserRepository();
+    }
+
+    @AfterEach
+    public  void tearDown(){
+        userRepository.deleteAll();
     }
 
     @Test
@@ -175,7 +181,7 @@ class WatchOnUserRepositoryTest {
         userRepository.save(user4);
 
         assertEquals(3, userRepository.countUser());
-        assertEquals("3", user4.getUserId());
+        assertEquals("4", user4.getUserId());
     }
 
     @Test

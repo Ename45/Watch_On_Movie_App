@@ -2,18 +2,21 @@ package services;
 
 import data.models.Movie;
 import data.models.Role;
+import data.models.SharedItems;
 import data.models.User;
-import data.repositories.MovieRepository;
-import data.repositories.WatchOnMovieRepository;
 import dto.requests.NewMovieDetailsRequest;
+import dto.requests.ShareMovieRequest;
 import dto.responses.DeleteMovieResponse;
 import dto.responses.MovieAddedToDatabaseResponse;
+import dto.responses.MovieSharedResponse;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class WatchOnAdminServices implements AdminServices{
-    private final UserServices userServices = new WatchOnUserServices();
-    private final MovieServices movieServices = new WatchOnMovieServices();
+
+    UserServices userServices = new WatchOnUserServices();
+    MovieServices movieServices = new WatchOnMovieServices();
 
 
     public MovieAddedToDatabaseResponse addMovieToDatabase(NewMovieDetailsRequest newMovieDetailsRequest) {
@@ -49,6 +52,12 @@ public class WatchOnAdminServices implements AdminServices{
         return movieAddedToDatabaseResponse;
     }
 
+//
+//    @Override
+//    public User findUserById(String id) {
+//        return userServices.findUserById(id);
+//    }
+
 
     @Override
     public List<Movie> findAllMovies() {
@@ -58,6 +67,28 @@ public class WatchOnAdminServices implements AdminServices{
     @Override
     public Movie findMovieByName(String movieName) {
         return movieServices.findMovieByName(movieName);
+    }
+
+    @Override
+    public MovieSharedResponse shareAMovie(ShareMovieRequest shareMovieRequest) {
+        User sender = userServices.findUserById(shareMovieRequest.getSenderId());
+        User receiver = userServices.findUserById(shareMovieRequest.getReceiverId());
+        Movie movieToShare = movieServices.findMovieById(shareMovieRequest.getMovieId());
+
+
+        if (sender == null || receiver == null) {
+            throw new IllegalArgumentException("User not found on the platform. Invite friend to signup.");
+        }
+
+        SharedItems sharedItems = new SharedItems();
+        sharedItems.getSenderId();
+        sharedItems.setMovieId(movieToShare);
+        receiver.receiveSharedItem(sharedItems);
+
+        MovieSharedResponse movieSharedResponse = new MovieSharedResponse();
+        movieSharedResponse.setMessage("sent movie to" + receiver.getFullName());
+
+        return movieSharedResponse;
     }
 
     @Override
