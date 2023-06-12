@@ -84,13 +84,13 @@ public class Main {
                 """);
         String userChoice = input(userServiceMenu);
         switch (userChoice) {
-            case "1" -> userServices.findAllMovies();
-            case "2" -> userServices.findMovieByName(input("Search for movie by name"));
-            case "3" -> userServices.addMovieToUserList(input("Search for movie by name"), userServices.findUserById(loginResponse.getId()));
-//            case "4" -> userServices.deleteMovieFromUserListById();
-//            case "5" -> userServices.shareMovie();
-            case "6" -> userServices.findUserByUserName(input("Search for friend by name"));
-            case "7" -> userServices.findUserByUserName(input("Search for friend by email"));
+            case "1" -> userController.findAllMovies();
+            case "2" -> userController.findMovieByName(input("Search for movie by name"));
+            case "3" -> userController.addMovieToUserList(input("Search for movie by name"), userController.findUserById(loginResponse.getId()));
+//            case "4" -> userController.deleteMovieFromUserListById();
+//            case "5" -> userController.shareMovie();
+            case "6" -> userController.findUserByUserName(input("Search for friend by name"));
+            case "7" -> userController.findUserByUserName(input("Search for friend by email"));
             default -> {
                 errorMessage();
                 userPlatform();
@@ -99,7 +99,8 @@ public class Main {
     }
 
     private static void adminPlatform() {
-        String option = input("enter 1 add movie to database\n2 delete movie from database\n enter 3 ");
+        String option = input("enter 1 add movie to database\n2 find movie by name\n3 find all movie" +
+                "\n4 share movie\n5 delete movie from database");
         if (option.equals( "1")) {
             String movieName = input("Enter movie name ");
             String movieGenre = input("Enter movie genre ");
@@ -112,11 +113,11 @@ public class Main {
             newMovieDetailsRequest.setProducer(movieProducer);
             adminController.addMovieToDatabase(newMovieDetailsRequest);
         }
-        if (option.equals("3")){
+        if (option.equals("2")){
             String movieName = input("Enter the name of the movie ");
             adminController.findMovieByName(movieName);
         }
-        if (option.equals("4")){
+        if (option.equals("3")){
             adminController.findAllMovies();
         }
         if (option.equals("4")){
@@ -129,7 +130,7 @@ public class Main {
             shareMovieRequest.setMovieId(movieToShare);
             adminController.shareAMovie(shareMovieRequest);
         }
-        if (option.equals("2")){
+        if (option.equals("5")){
             String movieToDelete = input("Enter the name of the movie ");
             adminController.deleteMovieFromDatabaseById(movieToDelete);
         }
