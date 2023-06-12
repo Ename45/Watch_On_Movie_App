@@ -25,6 +25,7 @@ public class AdminController {
         return adminServices.addMovieToDatabase(newMovieDetailsRequest);
     }
 
+    //Todo who shares a movie? Just Admin?
     public MovieSharedResponse shareAMovie(ShareMovieRequest shareMovieRequest){
         return adminServices.shareAMovie(shareMovieRequest);
     }

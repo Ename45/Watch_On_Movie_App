@@ -154,7 +154,7 @@ class WatchOnAdminServicesTest {
 
         LoginRequest loginRequest2 = new LoginRequest();
         loginRequest2.setEmail("philo@gmail.com");
-        loginRequest2.setPassword("Ph1o.");
+        loginRequest2.setPassword("In3m.");
         LoginResponse loginResponse2 = new LoginResponse();
         loginResponse2 = userServices.login(loginRequest2);
 
@@ -166,7 +166,7 @@ class WatchOnAdminServicesTest {
 
         LoginRequest loginRequest3 = new LoginRequest();
         loginRequest3.setEmail("ename@gmail.com");
-        loginRequest3.setPassword("In3m.");
+        loginRequest3.setPassword("wOc1472xxX");
         LoginResponse loginResponse3 = new LoginResponse();
         loginResponse3 = userServices.login(loginRequest3);
 
