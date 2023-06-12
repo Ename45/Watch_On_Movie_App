@@ -165,8 +165,8 @@ class WatchOnAdminServicesTest {
         userServices.signUp(signUpRequest3);
 
         LoginRequest loginRequest3 = new LoginRequest();
-        loginRequest3.setEmail("ename@gmail.com");
-        loginRequest3.setPassword("wOc1472xxX");
+        loginRequest3.setEmail("john@gmail.com");
+        loginRequest3.setPassword("Jo3n.");
         LoginResponse loginResponse3 = new LoginResponse();
         loginResponse3 = userServices.login(loginRequest3);
 

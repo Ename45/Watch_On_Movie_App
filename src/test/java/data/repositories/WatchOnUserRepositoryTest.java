@@ -207,7 +207,6 @@ class WatchOnUserRepositoryTest {
         userRepository.save(user5);
 
         List<User> allUsers = userRepository.findAll();
-        System.out.println(allUsers);
         assertEquals(allUsers, userRepository.findAll());
     }
 }
